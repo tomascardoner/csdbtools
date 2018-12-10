@@ -1,0 +1,39 @@
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\obj\x86\Debug\CS_DB_Tools.MDIMain.resources
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\obj\x86\Debug\CS_DB_Tools.Resources.resources
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\bin\Debug\CS-DB Tools.exe
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\bin\Debug\CS-DB Tools.pdb
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\bin\Debug\CS-DB Tools.xml
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\obj\x86\Debug\CS-DB Tools.exe
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\obj\x86\Debug\CS-DB Tools.xml
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\obj\x86\Debug\CS-DB Tools.pdb
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\obj\x86\Debug\CS_DB_Tools.CSF_StatusMessage.resources
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\obj\x86\Debug\Interop.MSDASC.dll
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\obj\x86\Debug\CS-DB Tools.vbproj.ResolveComReference.cache
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\obj\x86\Debug\CS_DB_Tools.CSF_ErrorMessageBox.resources
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\obj\x86\Debug\CS-DB Tools.vbproj.GenerateResource.Cache
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\obj\x86\Debug\Interop.ADOX.dll
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\obj\x86\Debug\CS_DB_Tools.DBCompareStructure_Result.resources
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\obj\x86\Debug\CS_DB_Tools.DBCompareStructure_Select.resources
+E:\User\Cardoner Sistemas\Development\CS-DB Tools\CS-DB Tools\obj\x86\Debug\CS_DB_Tools.DBCopy_Options.resources
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\Interop.ADOX.dll
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\Interop.MSDASC.dll
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS-DB Tools.vbproj.ResolveComReference.cache
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS-DB Tools.xml
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS-DB Tools.pdb
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\bin\Debug\CS-DB Tools.exe.config
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\bin\Debug\CS-DB Tools.exe
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\bin\Debug\CS-DB Tools.pdb
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\bin\Debug\CS-DB Tools.xml
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS_DB_Tools.CS_ErrorMessageBox.resources
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS_DB_Tools.Resources.resources
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS-DB Tools.vbproj.GenerateResource.Cache
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS-DB Tools.exe
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS_DB_Tools.formCompareData_Select.resources
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS_DB_Tools.formCompareStructure_Result.resources
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS_DB_Tools.formCompareStructure_Select.resources
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS_DB_Tools.formCopy_Options.resources
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS_DB_Tools.formBrowseData.resources
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS_DB_Tools.formMDIMain.resources
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS_DB_Tools.formCompareData_BrowseDifferences.resources
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS-DB Tools.vbproj.CoreCompileInputs.cache
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS-DB Tools.vbprojAssemblyReference.cache

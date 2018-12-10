@@ -1,0 +1,25 @@
+﻿-AL COPIAR LA ESTRUCTURA, IGNORAR LOS SIGUIENTES CAMPOS:
+	Gen_Notas
+	s_GUID
+	Aen_Notas
+	s_ColLineage
+	s_Generation
+	s_Lineage
+
+
+-COLUMN PROPERTIES
+Property: Autoincrement - Value: False
+Property: Default - Value: 
+Property: Description - Value: 
+Property: Nullable - Value: True
+Property: Fixed Length - Value: False
+Property: Seed - Value: 1
+Property: Increment - Value: 1
+Property: Jet OLEDB:Column Validation Text - Value: 
+Property: Jet OLEDB:Column Validation Rule - Value: 
+Property: Jet OLEDB:IISAM Not Last Column - Value: False
+Property: Jet OLEDB:AutoGenerate - Value: False
+Property: Jet OLEDB:One BLOB per Page - Value: False
+Property: Jet OLEDB:Compressed UNICODE Strings - Value: True
+Property: Jet OLEDB:Allow Zero Length - Value: False
+Property: Jet OLEDB:Hyperlink - Value: False

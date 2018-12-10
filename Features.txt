@@ -1,0 +1,31 @@
+﻿						########################
+						##                    ##
+						##  CS-DB Tools 2012  ##
+						##                    ##
+						########################
+
+
+FEATURES:
+=========
+- Connect to any OLEDB database
+- Load Table Properties
+- Compare Tables, Columns, etc. (in order and by DataTables, not TreeView)
+- Check Primary Keys
+- Check Table Constraints
+- Check Tables and Columns that exists in Database 2 and not in Database 1
+
+
+FUTURE REALESES:
+================
+- Load Table Properties with filters
+- Check Relationships
+
+- Check Stored Procedures
+- Armar arbol de filtros después de seleccionar los objetos
+	- Tablas + Propiedades
+		- Columns + Propiedades
+		- Keys + Propiedades
+		- Indexes + Propiedades
+- Filter objects to compare by type (ie: primary keys, unique keys, etc.)
+- Filter properties to check (ie: ORDINAL_POSITION)
+- Filter datatypes to check (ie: User-Defined data types)

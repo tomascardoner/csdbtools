@@ -1,0 +1,385 @@
+﻿
+Dim db As Database
+Dim tdf As TableDef
+Dim fld As DAO.Field
+Dim ndx As DAO.Index
+Dim strSQL As String
+Dim strFlds As String
+Dim strCn As String
+
+Dim fs, f
+
+    Set db = CurrentDb
+
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    Set f = fs.CreateTextFile("C:\Docs\Schema.txt")
+
+    For Each tdf In db.TableDefs
+        If Left(tdf.Name, 4) <> "Msys" Then
+            strSQL = "strSQL=""CREATE TABLE [" & tdf.Name & "] ("
+
+            strFlds = ""
+
+            For Each fld In tdf.Fields
+
+                strFlds = strFlds & ",[" & fld.Name & "] "
+
+                Select Case fld.Type
+
+                    Case dbText
+                        'No look-up fields
+                        strFlds = strFlds & "Text (" & fld.Size & ")"
+
+                    Case dbLong
+                        If (fld.Attributes And dbAutoIncrField) = 0& Then
+                            strFlds = strFlds & "Long"
+                        Else
+                            strFlds = strFlds & "Counter"
+                        End If
+
+                    Case dbBoolean
+                        strFlds = strFlds & "YesNo"
+
+                    Case dbByte
+                        strFlds = strFlds & "Byte"
+
+                    Case dbInteger
+                        strFlds = strFlds & "Integer"
+
+                    Case dbCurrency
+                        strFlds = strFlds & "Currency"
+
+                    Case dbSingle
+                        strFlds = strFlds & "Single"
+
+                    Case dbDouble
+                        strFlds = strFlds & "Double"
+
+                    Case dbDate
+                        strFlds = strFlds & "DateTime"
+
+                    Case dbBinary
+                        strFlds = strFlds & "Binary"
+
+                    Case dbLongBinary
+                        strFlds = strFlds & "OLE Object"
+
+                    Case dbMemo
+                        If (fld.Attributes And dbHyperlinkField) = 0& Then
+                            strFlds = strFlds & "Memo"
+                        Else
+                            strFlds = strFlds & "Hyperlink"
+                        End If
+
+                    Case dbGUID
+                        strFlds = strFlds & "GUID"
+
+                End Select
+
+            Next
+
+            strSQL = strSQL & Mid(strFlds, 2) & " )""" & vbCrLf & "Currentdb.Execute strSQL"
+
+            f.WriteLine vbCrLf & strSQL
+
+            'Indexes
+            For Each ndx In tdf.Indexes
+
+                If ndx.Unique Then
+                    strSQL = "strSQL=""CREATE UNIQUE INDEX "
+                Else
+                    strSQL = "strSQL=""CREATE INDEX "
+                End If
+
+                strSQL = strSQL & "[" & ndx.Name & "] ON [" & tdf.Name & "] ("
+
+                strFlds = ""
+
+                For Each fld In tdf.Fields
+                    strFlds = ",[" & fld.Name & "]"
+                Next
+
+                strSQL = strSQL & Mid(strFlds, 2) & ") "
+
+                strCn = ""
+
+                If ndx.Primary Then
+                    strCn = " PRIMARY"
+                End If
+
+                If ndx.Required Then
+                    strCn = strCn & " DISALLOW NULL"
+                End If
+
+                If ndx.IgnoreNulls Then
+                    strCn = strCn & " IGNORE NULL"
+                End If
+
+                If Trim(strCn) <> vbNullString Then
+                    strSQL = strSQL & " WITH" & strCn & " "
+                End If
+
+                f.WriteLine vbCrLf & strSQL & """" & vbCrLf & "Currentdb.Execute strSQL"
+            Next
+        End If
+    Next
+
+    f.Close
+
+
+
+
+
+
+
+
+
+	' Usage:
+'  CScript //Nologo ddl.vbs <input mdb file> > <output>
+'
+' Outputs DDL statements for tables, indexes, and relations from Access file 
+' (.mdb, .accdb) <input file> to stdout.  
+' Requires Microsoft Access.
+'
+' NOTE: Adapted from code from "polite person" + Kevin Chambers - see:
+' http://www.mombu.com/microsoft/comp-databases-ms-access/t-exporting-jet-table-metadata-as-text-119667.html
+'
+Option Explicit
+Dim stdout, fso
+Dim strFile
+Dim appAccess, db, tbl, idx, rel
+
+Set stdout = WScript.StdOut
+Set fso = CreateObject("Scripting.FileSystemObject")
+
+' Parse args
+If (WScript.Arguments.Count = 0) then
+    MsgBox "Usage: cscript //Nologo ddl.vbs access-file", vbExclamation, "Error"
+    Wscript.Quit()
+End if
+strFile = fso.GetAbsolutePathName(WScript.Arguments(0))
+
+' Open mdb file
+Set appAccess = CreateObject("Access.Application")
+appAccess.OpenCurrentDatabase strFile
+Set db = appAccess.DBEngine(0)(0)
+
+' Iterate over tables
+  ' create table statements
+For Each tbl In db.TableDefs
+  If Not isSystemTable(tbl) And Not isHiddenTable(tbl) Then
+    stdout.WriteLine getTableDDL(tbl)
+    stdout.WriteBlankLines(1)
+
+    ' Iterate over indexes
+      ' create index statements
+    For Each idx In tbl.Indexes
+      stdout.WriteLine getIndexDDL(tbl, idx)
+    Next
+
+    stdout.WriteBlankLines(2)
+  End If
+Next
+
+' Iterate over relations
+  ' alter table add constraint statements
+For Each rel In db.Relations
+  Set tbl = db.TableDefs(rel.Table)
+  If Not isSystemTable(tbl) And Not isHiddenTable(tbl) Then
+    stdout.WriteLine getRelationDDL(rel)
+    stdout.WriteBlankLines(1)
+  End If
+Next
+
+Function getTableDDL(tdef)
+Const dbBoolean = 1
+Const dbByte = 2
+Const dbCurrency = 5
+Const dbDate = 8
+Const dbDouble = 7
+Const dbInteger = 3
+Const dbLong = 4
+Const dbDecimal = 20
+Const dbFloat = 17
+Const dbMemo = 12
+Const dbSingle = 6
+Const dbText = 10
+Const dbGUID = 15
+Const dbAutoIncrField = 16
+
+Dim fld
+Dim sql
+Dim ln, a
+
+    sql = "CREATE TABLE " & QuoteObjectName(tdef.name) & " ("
+    ln = vbCrLf
+
+    For Each fld In tdef.fields
+       sql = sql & ln & " " & QuoteObjectName(fld.name) & " "
+       Select Case fld.Type
+       Case dbBoolean   'Boolean
+          a = "BIT"
+       Case dbByte   'Byte
+          a = "BYTE"
+       Case dbCurrency  'Currency
+          a = "MONEY"
+       Case dbDate 'Date / Time
+          a = "DATETIME"
+       Case dbDouble    'Double
+          a = "DOUBLE"
+       Case dbInteger   'Integer
+          a = "INTEGER"
+       Case dbLong  'Long
+          'test if counter, doesn't detect random property if set
+          If (fld.Attributes And dbAutoIncrField) Then
+             a = "COUNTER"
+          Else
+             a = "LONG"
+          End If
+       Case dbDecimal    'Decimal
+          a = "DECIMAL"
+       Case dbFloat      'Float
+          a = "FLOAT"
+       Case dbMemo 'Memo
+          a = "MEMO"
+       Case dbSingle    'Single
+          a = "SINGLE"
+       Case dbText 'Text
+          a = "VARCHAR(" & fld.Size & ")"
+       Case dbGUID 'Text
+          a = "GUID"
+       Case Else
+          '>>> raise error
+          MsgBox "Field " & tdef.name & "." & fld.name & _
+                " of type " & fld.Type & " has been ignored!!!"
+       End Select
+
+       sql = sql & a
+
+       If fld.Required Then _
+          sql = sql & " NOT NULL "
+       If Len(fld.DefaultValue) > 0 Then _
+          sql = sql & " DEFAULT " & fld.DefaultValue
+
+       ln = ", " & vbCrLf
+    Next
+
+    sql = sql & vbCrLf & ");"
+    getTableDDL = sql
+
+End Function
+
+Function getIndexDDL(tdef, idx)
+Dim sql, ln, myfld
+
+    If Left(idx.name, 1) = "{" Then
+       'ignore, GUID-type indexes - bugger them
+    ElseIf idx.Foreign Then
+       'this index was created by a relation.  recreating the
+       'relation will create this for us, so no need to do it here
+    Else
+       ln = ""
+       sql = "CREATE "
+       If idx.Unique Then
+           sql = sql & "UNIQUE "
+       End If
+       sql = sql & "INDEX " & QuoteObjectName(idx.name) & " ON " & _
+             QuoteObjectName(tdef.name) & "( "
+       For Each myfld In idx.fields
+          sql = sql & ln & QuoteObjectName(myfld.name)
+          ln = ", "
+       Next
+       sql = sql & " )"
+       If idx.Primary Then
+          sql = sql & " WITH PRIMARY"
+       ElseIf idx.IgnoreNulls Then
+          sql = sql & " WITH IGNORE NULL"
+       ElseIf idx.Required Then
+          sql = sql & " WITH DISALLOW NULL"
+       End If
+       sql = sql & ";"
+    End If
+    getIndexDDL = sql
+
+End Function
+
+' Returns the SQL DDL to add a relation between two tables.
+' Oddly, DAO will not accept the ON DELETE or ON UPDATE
+' clauses, so the resulting sql must be executed through ADO
+Function getRelationDDL(myrel)
+Const dbRelationUpdateCascade = 256
+Const dbRelationDeleteCascade = 4096
+Dim mytdef
+Dim myfld
+Dim sql, ln
+
+
+    With myrel
+       sql = "ALTER TABLE " & QuoteObjectName(.ForeignTable) & _
+             " ADD CONSTRAINT " & QuoteObjectName(.name) & " FOREIGN KEY ( "
+       ln = ""
+       For Each myfld In .fields 'ie fields of the relation
+          sql = sql & ln & QuoteObjectName(myfld.ForeignName)
+          ln = ","
+       Next
+       sql = sql & " ) " & "REFERENCES " & _
+             QuoteObjectName(.table) & "( "
+       ln = ""
+       For Each myfld In .fields
+          sql = sql & ln & QuoteObjectName(myfld.name)
+          ln = ","
+       Next
+       sql = sql & " )"
+       If (myrel.Attributes And dbRelationUpdateCascade) Then _
+             sql = sql & " ON UPDATE CASCADE"
+       If (myrel.Attributes And dbRelationDeleteCascade) Then _
+             sql = sql & " ON DELETE CASCADE"
+       sql = sql & ";"
+    End With
+    getRelationDDL = sql
+End Function
+
+
+Function isSystemTable(tbl)
+Dim nAttrib
+Const dbSystemObject = -2147483646
+    isSystemTable = False
+    nAttrib = tbl.Attributes
+    isSystemTable = (nAttrib <> 0 And ((nAttrib And dbSystemObject) <> 0))
+End Function
+
+Function isHiddenTable(tbl)
+Dim nAttrib
+Const dbHiddenObject = 1
+    isHiddenTable = False
+    nAttrib = tbl.Attributes
+    isHiddenTable = (nAttrib <> 0 And ((nAttrib And dbHiddenObject) <> 0))
+End Function
+
+Function QuoteObjectName(str)
+    QuoteObjectName = "[" & str & "]"
+End Function
+
+
+
+            'TableSchema = SourceConnection.OpenSchema(ADODB.SchemaEnum.adSchemaColumns, New Object() {Nothing, Nothing, SourceTable.Name})
+            'TableSchema.Sort = "ORDINAL_POSITION"
+            'Do While Not TableSchema.EOF
+
+
+'SourceColumn = SourceTable.Columns(TableSchema("NAME").Value)
+
+        'Dim PropertyIndex As Integer
+
+        'Dim TableSchema As ADODB.Recordset
+
+
+                        'For PropertyIndex = 7 To SourceColumn.Properties.Count - 1
+                        '    DestinationColumn.Properties(PropertyIndex).Value = SourceColumn.Properties(PropertyIndex).Value
+                        '    Debug.Print("Property: " & DestinationColumn.Properties(PropertyIndex).Name & " - Value: " & DestinationColumn.Properties(PropertyIndex).Value)
+                        'Next PropertyIndex
+
+
+                    'TableSchema.MoveNext()
+
+                'Loop
