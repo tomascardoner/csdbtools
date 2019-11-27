@@ -36,7 +36,7 @@
             connectionDatabase2.Dispose()
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, ErrorMessage)
+            CardonerSistemas.ErrorHandler.ProcessError(ex, ErrorMessage)
             Exit Sub
         End Try
 

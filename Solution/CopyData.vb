@@ -44,7 +44,7 @@
             DestinationCatalog.ActiveConnection = DestinationConnectionADODB
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, ErrorMessage)
+            CardonerSistemas.ErrorHandler.ProcessError(ex, ErrorMessage)
             Return False
         End Try
 
@@ -146,7 +146,7 @@
             End If
 
         Catch ex As Exception When Not CS_Instance.IsRunningUnderIDE
-            CS_Error.ProcessError(ex, ErrorMessage)
+            CardonerSistemas.ErrorHandler.ProcessError(ex, ErrorMessage)
             Return False
         End Try
 
@@ -215,7 +215,7 @@
                 End If
 
             Catch ex As Exception
-                CS_Error.ProcessError(ex, ErrorMessage)
+                CardonerSistemas.ErrorHandler.ProcessError(ex, ErrorMessage)
                 SourceCatalog = Nothing
                 SourceConnectionOLEDB.Close()
                 SourceConnectionOLEDB = Nothing
@@ -303,7 +303,7 @@
             SourceTableRecordset = Nothing
 
         Catch ex As Exception When Not CS_Instance.IsRunningUnderIDE
-            CS_Error.ProcessError(ex, ErrorMessage)
+            CardonerSistemas.ErrorHandler.ProcessError(ex, ErrorMessage)
             Return False
         End Try
 
@@ -355,7 +355,7 @@
             Next SourceKey
 
         Catch ex As Exception When Not CS_Instance.IsRunningUnderIDE
-            CS_Error.ProcessError(ex, ErrorMessage)
+            CardonerSistemas.ErrorHandler.ProcessError(ex, ErrorMessage)
             Return False
         End Try
 
@@ -414,7 +414,7 @@
             Next SourceIndex
 
         Catch ex As Exception When Not CS_Instance.IsRunningUnderIDE
-            CS_Error.ProcessError(ex, ErrorMessage)
+            CardonerSistemas.ErrorHandler.ProcessError(ex, ErrorMessage)
             Return False
         End Try
 
@@ -469,7 +469,7 @@
             DataAdapter.Update(DataSet, TableName)
 
         Catch ex As Exception When Not CS_Instance.IsRunningUnderIDE
-            CS_Error.ProcessError(ex, ErrorMessage)
+            CardonerSistemas.ErrorHandler.ProcessError(ex, ErrorMessage)
             Return False
         End Try
 
@@ -526,7 +526,7 @@
             Next SourceKey
 
         Catch ex As Exception When Not CS_Instance.IsRunningUnderIDE
-            CS_Error.ProcessError(ex, ErrorMessage)
+            CardonerSistemas.ErrorHandler.ProcessError(ex, ErrorMessage)
             Return False
         End Try
 

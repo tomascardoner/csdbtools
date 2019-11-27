@@ -84,19 +84,19 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\framework-vbnet\ErrorHandler.vb">
+      <Link>ErrorHandler.vb</Link>
+    </Compile>
+    <Compile Include="..\..\framework-vbnet\ErrorHandlerMessageBox.designer.vb">
+      <Link>ErrorHandlerMessageBox.designer.vb</Link>
+      <DependentUpon>ErrorHandlerMessageBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\framework-vbnet\ErrorHandlerMessageBox.vb">
+      <Link>ErrorHandlerMessageBox.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Database_ADONET.vb">
       <Link>CS_Database_ADONET.vb</Link>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Error.vb">
-      <Link>CS_Error.vb</Link>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ErrorMessageBox.designer.vb">
-      <Link>CS_ErrorMessageBox.designer.vb</Link>
-      <DependentUpon>CS_ErrorMessageBox.vb</DependentUpon>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ErrorMessageBox.vb">
-      <Link>CS_ErrorMessageBox.vb</Link>
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Instance.vb">
       <Link>CS_Instance.vb</Link>
@@ -168,9 +168,9 @@
     <Compile Include="Startup.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ErrorMessageBox.resx">
-      <Link>CS_ErrorMessageBox.resx</Link>
-      <DependentUpon>CS_ErrorMessageBox.vb</DependentUpon>
+    <EmbeddedResource Include="..\..\framework-vbnet\ErrorHandlerMessageBox.resx">
+      <Link>ErrorHandlerMessageBox.resx</Link>
+      <DependentUpon>ErrorHandlerMessageBox.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formCompareData_BrowseDifferences.resx">
       <DependentUpon>formCompareData_BrowseDifferences.vb</DependentUpon>

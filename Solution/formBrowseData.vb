@@ -32,7 +32,7 @@
             mConnection.Open()
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error opening Datasource for retrieve Tables list.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error opening Datasource for retrieve Tables list.")
             Exit Sub
         End Try
 
@@ -48,7 +48,7 @@
 
             CSM_Registry.SaveApplicationValue("Browse Data", "ConnectionString", textboxDatasource.Text)
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error retrieving Tables list.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error retrieving Tables list.")
         End Try
     End Sub
 
@@ -101,7 +101,7 @@
                 datagridviewData.Refresh()
 
             Catch ex As Exception
-                CS_Error.ProcessError(ex, String.Format("Error opening Table {0}.", comboboxTable.Text))
+                CardonerSistemas.ErrorHandler.ProcessError(ex, String.Format("Error opening Table {0}.", comboboxTable.Text))
             End Try
         End If
     End Sub
@@ -113,7 +113,7 @@
                 mDataSet.AcceptChanges()
             End If
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al actualizar los datos.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al actualizar los datos.")
         End Try
     End Sub
 
