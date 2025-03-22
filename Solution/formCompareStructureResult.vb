@@ -1,4 +1,4 @@
-﻿Public Class formCompareStructure_Result
+﻿Public Class formCompareStructureResult
     Private Sub buttonTreeViewExpandAll_Click(sender As System.Object, e As System.EventArgs) Handles buttonTreeViewExpandAll.Click
         treeviewResults.ExpandAll()
     End Sub

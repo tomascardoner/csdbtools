@@ -1,4 +1,4 @@
-﻿Public Class formCopy_Options
+﻿Public Class FormCopyOptions
 
     Private Sub buttonSource_Click(sender As Object, e As EventArgs) Handles buttonSource.Click
         textboxSource.Text = CS_Database_ADONET.AskForConnectionString(textboxSource.Text)

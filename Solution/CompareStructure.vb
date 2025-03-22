@@ -1,6 +1,7 @@
 ﻿Module CompareStructure
 
 #Region "Declarations"
+
     'SCHEMA FOR DATABASE 1
     Private mdatatableTables1 As DataTable
     Private mdatatableViews1 As DataTable
@@ -96,6 +97,7 @@
 #End Region
 
 #Region "Read Schema"
+
     Friend Sub GetDatabaseSchema(ByVal IsDatabase1 As Boolean, ByRef treeviewDatabase As TreeView, ByRef connectionDatabase As OleDb.OleDbConnection)
         Dim treenodeFolderTables As TreeNode
 
@@ -156,91 +158,94 @@
     End Sub
 
     Private Function GetDataTypeNameComplete_SQLServer(ByVal datarowColumnSchema As DataRow) As String
+        Dim dataTypeName As String
+
         Select Case CInt(datarowColumnSchema("DATA_TYPE"))
             Case 2
-                GetDataTypeNameComplete_SQLServer = "smallint"
+                dataTypeName = "smallint"
             Case 3
-                GetDataTypeNameComplete_SQLServer = "int"
+                dataTypeName = "int"
             Case 4
-                GetDataTypeNameComplete_SQLServer = "real"
+                dataTypeName = "real"
             Case 5
-                GetDataTypeNameComplete_SQLServer = "float"
+                dataTypeName = "float"
             Case 6
-                GetDataTypeNameComplete_SQLServer = "smallmoney"
+                dataTypeName = "smallmoney"
             Case 11
-                GetDataTypeNameComplete_SQLServer = "bit"
+                dataTypeName = "bit"
             Case 17
-                GetDataTypeNameComplete_SQLServer = "tinyint"
+                dataTypeName = "tinyint"
             Case 128
-                GetDataTypeNameComplete_SQLServer = "image"
+                dataTypeName = "image"
             Case 129
-                GetDataTypeNameComplete_SQLServer = "varchar(" & datarowColumnSchema("CHARACTER_MAXIMUM_LENGTH").ToString & ")"
+                dataTypeName = "varchar(" & datarowColumnSchema("CHARACTER_MAXIMUM_LENGTH").ToString & ")"
             Case 130
-                GetDataTypeNameComplete_SQLServer = "nvarchar"
+                dataTypeName = "nvarchar"
             Case 131
-                GetDataTypeNameComplete_SQLServer = "decimal(" & datarowColumnSchema("NUMERIC_PRECISION").ToString & "," & datarowColumnSchema("NUMERIC_SCALE").ToString & ")"
+                dataTypeName = "decimal(" & datarowColumnSchema("NUMERIC_PRECISION").ToString & "," & datarowColumnSchema("NUMERIC_SCALE").ToString & ")"
             Case 133
-                GetDataTypeNameComplete_SQLServer = "date"
+                dataTypeName = "date"
             Case 135
-                GetDataTypeNameComplete_SQLServer = "smalldatetime"
+                dataTypeName = "smalldatetime"
             Case Else
-                GetDataTypeNameComplete_SQLServer = CInt(datarowColumnSchema("DATA_TYPE"))
+                dataTypeName = CInt(datarowColumnSchema("DATA_TYPE"))
                 Stop
         End Select
-        GetDataTypeNameComplete_SQLServer = GetDataTypeNameComplete_SQLServer & ", " & IIf(datarowColumnSchema("IS_NULLABLE"), "null", "not null")
+        Return dataTypeName & ", " & IIf(datarowColumnSchema("IS_NULLABLE"), "null", "not null")
     End Function
 
     Private Function GetDataTypeNameComplete_Access(ByVal datarowColumnSchema As DataRow) As String
-        GetDataTypeNameComplete_Access = ""
+        Dim dataTypeName As String = String.Empty
+
         Select Case CInt(datarowColumnSchema("DATA_TYPE"))
             Case 2
-                GetDataTypeNameComplete_Access = "Integer"
+                dataTypeName = "Integer"
             Case 3
                 If datarowColumnSchema("CHARACTER_MAXIMUM_LENGTH") Is Convert.DBNull Then
                     Select Case datarowColumnSchema("COLUMN_FLAGS")
                         Case 122
-                            GetDataTypeNameComplete_Access = "Long"
+                            dataTypeName = "Long"
                         Case 90
-                            GetDataTypeNameComplete_Access = "Autonumber"
+                            dataTypeName = "Autonumber"
                         Case Else
-                            GetDataTypeNameComplete_Access = "Long"
+                            dataTypeName = "Long"
                     End Select
                 End If
             Case 4
-                GetDataTypeNameComplete_Access = "Single"
+                dataTypeName = "Single"
             Case 5
-                GetDataTypeNameComplete_Access = "Double"
+                dataTypeName = "Double"
             Case 6
-                GetDataTypeNameComplete_Access = "Money"
+                dataTypeName = "Money"
             Case 7
-                GetDataTypeNameComplete_Access = "Byte"
+                dataTypeName = "Byte"
             Case 11
-                GetDataTypeNameComplete_Access = "Yes/No"
+                dataTypeName = "Yes/No"
             Case 72
-                GetDataTypeNameComplete_Access = "Byte"
+                dataTypeName = "Byte"
             Case 128
                 Select Case datarowColumnSchema("CHARACTER_MAXIMUM_LENGTH")
                     Case 0
-                        GetDataTypeNameComplete_Access = "OLE Object"
+                        dataTypeName = "OLE Object"
                     Case -1
-                        GetDataTypeNameComplete_Access = "Memo"
+                        dataTypeName = "Memo"
                     Case Else
-                        GetDataTypeNameComplete_Access = "varchar(" & datarowColumnSchema("CHARACTER_MAXIMUM_LENGTH").ToString & ")"
+                        dataTypeName = "varchar(" & datarowColumnSchema("CHARACTER_MAXIMUM_LENGTH").ToString & ")"
                 End Select
             Case 130
                 Select Case datarowColumnSchema("CHARACTER_MAXIMUM_LENGTH")
                     Case 0, -1
-                        GetDataTypeNameComplete_Access = "Memo"
+                        dataTypeName = "Memo"
                     Case Else
-                        GetDataTypeNameComplete_Access = "varchar(" & datarowColumnSchema("CHARACTER_MAXIMUM_LENGTH").ToString & ")"
+                        dataTypeName = "varchar(" & datarowColumnSchema("CHARACTER_MAXIMUM_LENGTH").ToString & ")"
                 End Select
             Case 131
-                GetDataTypeNameComplete_Access = "Decimal(" & datarowColumnSchema("NUMERIC_PRECISION") & "," & datarowColumnSchema("NUMERIC_SCALE") & ")"
+                dataTypeName = "Decimal(" & datarowColumnSchema("NUMERIC_PRECISION") & "," & datarowColumnSchema("NUMERIC_SCALE") & ")"
             Case Else
-                GetDataTypeNameComplete_Access = CInt(datarowColumnSchema("DATA_TYPE"))
+                dataTypeName = CInt(datarowColumnSchema("DATA_TYPE"))
                 Stop
         End Select
-        GetDataTypeNameComplete_Access = GetDataTypeNameComplete_Access & ", " & IIf(datarowColumnSchema("IS_NULLABLE"), "null", "not null")
+        Return dataTypeName & ", " & IIf(datarowColumnSchema("IS_NULLABLE"), "null", "not null")
     End Function
 
     Friend Sub GetPrimaryKeys(ByRef datatablePrimaryKeys As DataTable, ByRef treenodeFolderTables As TreeNode, ByRef connectionDatabase As OleDb.OleDbConnection)
@@ -291,14 +296,12 @@
         Dim IndexName As String = ""
 
         For Each datarowIndex As DataRow In datatableIndexes.DefaultView.ToTable.Rows
-            If Not EXCLUSION_TABLE_NAME.Contains("|" & datarowIndex(DATAROW_COLUMN_TABLE_NAME).ToString & "|") Then
-                If IndexName <> datarowIndex(DATAROW_COLUMN_INDEX_NAME).ToString Then
-                    IndexName = datarowIndex(DATAROW_COLUMN_INDEX_NAME).ToString
+            If Not EXCLUSION_TABLE_NAME.Contains("|" & datarowIndex(DATAROW_COLUMN_TABLE_NAME).ToString & "|") AndAlso IndexName <> datarowIndex(DATAROW_COLUMN_INDEX_NAME).ToString Then
+                IndexName = datarowIndex(DATAROW_COLUMN_INDEX_NAME).ToString
 
-                    treenodeTable = treenodeFolderTables.Nodes(datarowIndex(DATAROW_COLUMN_TABLE_NAME).ToString)
-                    treenodeFolderIndexes = treenodeTable.Nodes(TREENODE_FOLDER_INDEXES)
-                    treenodeIndex = CreateNodeIndex(treenodeFolderIndexes, datarowIndex, ICON_NAME_INDEX_CLUSTERED, ICON_NAME_INDEX)
-                End If
+                treenodeTable = treenodeFolderTables.Nodes(datarowIndex(DATAROW_COLUMN_TABLE_NAME).ToString)
+                treenodeFolderIndexes = treenodeTable.Nodes(TREENODE_FOLDER_INDEXES)
+                treenodeIndex = CreateNodeIndex(treenodeFolderIndexes, datarowIndex, ICON_NAME_INDEX_CLUSTERED, ICON_NAME_INDEX)
             End If
         Next
     End Sub
@@ -314,14 +317,12 @@
         Dim IndexName As String = ""
 
         For Each datarowIndex As DataRow In datatableForeignKeys.DefaultView.ToTable.Rows
-            If Not EXCLUSION_TABLE_NAME.Contains("|" & datarowIndex(DATAROW_COLUMN_TABLE_NAME).ToString & "|") Then
-                If IndexName <> datarowIndex(DATAROW_COLUMN_INDEX_NAME).ToString Then
-                    IndexName = datarowIndex(DATAROW_COLUMN_INDEX_NAME).ToString
+            If Not EXCLUSION_TABLE_NAME.Contains("|" & datarowIndex(DATAROW_COLUMN_TABLE_NAME).ToString & "|") AndAlso IndexName <> datarowIndex(DATAROW_COLUMN_INDEX_NAME).ToString Then
+                IndexName = datarowIndex(DATAROW_COLUMN_INDEX_NAME).ToString
 
-                    treenodeTable = treenodeFolderTables.Nodes(datarowIndex(DATAROW_COLUMN_TABLE_NAME).ToString)
-                    treenodeFolderForeignKeys = treenodeTable.Nodes(TREENODE_FOLDER_INDEXES)
-                    treenodeForeignKey = CreateNodeIndex(treenodeFolderForeignKeys, datarowIndex, ICON_NAME_INDEX_CLUSTERED, ICON_NAME_INDEX)
-                End If
+                treenodeTable = treenodeFolderTables.Nodes(datarowIndex(DATAROW_COLUMN_TABLE_NAME).ToString)
+                treenodeFolderForeignKeys = treenodeTable.Nodes(TREENODE_FOLDER_INDEXES)
+                treenodeForeignKey = CreateNodeIndex(treenodeFolderForeignKeys, datarowIndex, ICON_NAME_INDEX_CLUSTERED, ICON_NAME_INDEX)
             End If
         Next
     End Sub
@@ -338,20 +339,20 @@
         Dim IndexName As String = ""
 
         For Each datarowIndex As DataRow In datatableProcedures.DefaultView.ToTable.Rows
-            If Not EXCLUSION_TABLE_NAME.Contains("|" & datarowIndex(DATAROW_COLUMN_TABLE_NAME).ToString & "|") Then
-                If IndexName <> datarowIndex(DATAROW_COLUMN_INDEX_NAME).ToString Then
-                    IndexName = datarowIndex(DATAROW_COLUMN_INDEX_NAME).ToString
+            If Not EXCLUSION_TABLE_NAME.Contains("|" & datarowIndex(DATAROW_COLUMN_TABLE_NAME).ToString & "|") AndAlso IndexName <> datarowIndex(DATAROW_COLUMN_INDEX_NAME).ToString Then
+                IndexName = datarowIndex(DATAROW_COLUMN_INDEX_NAME).ToString
 
-                    treenodeTable = treenodeFolderProgrammability.Nodes(datarowIndex(DATAROW_COLUMN_TABLE_NAME).ToString)
-                    treenodeFolderProcedures = treenodeTable.Nodes(TREENODE_FOLDER_INDEXES)
-                    treenodeProcedure = CreateNodeIndex(treenodeFolderProcedures, datarowIndex, ICON_NAME_INDEX_CLUSTERED, ICON_NAME_INDEX)
-                End If
+                treenodeTable = treenodeFolderProgrammability.Nodes(datarowIndex(DATAROW_COLUMN_TABLE_NAME).ToString)
+                treenodeFolderProcedures = treenodeTable.Nodes(TREENODE_FOLDER_INDEXES)
+                treenodeProcedure = CreateNodeIndex(treenodeFolderProcedures, datarowIndex, ICON_NAME_INDEX_CLUSTERED, ICON_NAME_INDEX)
             End If
         Next
     End Sub
+
 #End Region
 
 #Region "TreeView"
+
     Private Function CreateNodeTable(ByRef treenodeFolderTables As TreeNode, ByVal TableName As String, ByVal ImageKey As String, ByVal CreateFoldersNode As Boolean) As TreeNode
         Dim treenodeTable As TreeNode
 
@@ -445,9 +446,11 @@
             End If
         End If
     End Function
+
 #End Region
 
 #Region "Compare"
+
     Friend Sub CompareDatabases(ByRef treeviewDatabase1 As TreeView, ByRef treeviewDatabase2 As TreeView)
         Dim treenodeFolderTables1 As TreeNode
         Dim treenodeFolderTables2 As TreeNode
@@ -455,8 +458,8 @@
 
         Cursor.Current = Cursors.WaitCursor
 
-        formCompareStructure_Result.treeviewResults.ImageList = formMDIMain.imagelistDatabase
-        formCompareStructure_Result.treeviewResults.BeginUpdate()
+        formCompareStructureResult.treeviewResults.ImageList = FormMdi.imagelistDatabase
+        formCompareStructureResult.treeviewResults.BeginUpdate()
 
         'SORT DATA TABLES
         mdatatableTables1.DefaultView.Sort = DATAROW_COLUMN_TABLE_NAME
@@ -467,7 +470,7 @@
         mdatatableColumns2.DefaultView.Sort = DATAROW_COLUMN_COLUMN_NAME
 
         'CHECK TABLES AND VIEWS
-        treenodeFolderTablesResult = formCompareStructure_Result.treeviewResults.Nodes.Add(TREENODE_FOLDER_TABLES, TREENODE_FOLDER_TABLES, ICON_NAME_FOLDER, ICON_NAME_FOLDER)
+        treenodeFolderTablesResult = formCompareStructureResult.treeviewResults.Nodes.Add(TREENODE_FOLDER_TABLES, TREENODE_FOLDER_TABLES, ICON_NAME_FOLDER, ICON_NAME_FOLDER)
         treenodeFolderTables1 = treeviewDatabase1.Nodes(TREENODE_FOLDER_TABLES)
         treenodeFolderTables2 = treeviewDatabase2.Nodes(TREENODE_FOLDER_TABLES)
 
@@ -477,7 +480,7 @@
         'VIEWS
         CompareTablesOrViews(treenodeFolderTablesResult, mdatatableViews1, mdatatableViews2)
 
-        formCompareStructure_Result.treeviewResults.EndUpdate()
+        formCompareStructureResult.treeviewResults.EndUpdate()
 
         Cursor.Current = Cursors.Default
     End Sub
@@ -493,13 +496,13 @@
         Dim Table2Index As Integer = 0
         Dim Table2Count As Integer
 
-        Dim Table1Name As String = ""
-        Dim Table2Name As String = ""
+        Dim Table1Name As String
+        Dim Table2Name As String
 
         Table1Count = datatable1.DefaultView.Count
         Table2Count = datatable2.DefaultView.Count
 
-        Do While (Table1Index <= Table1Count - 1 Or Table2Index <= Table2Count - 1)
+        Do While (Table1Index <= Table1Count - 1 OrElse Table2Index <= Table2Count - 1)
             If Table1Index <= Table1Count - 1 Then
                 datarowTable1 = datatable1.DefaultView.Table.Rows(Table1Index)
                 Table1Name = datarowTable1(DATAROW_COLUMN_TABLE_NAME).ToString
@@ -566,18 +569,15 @@
         For TablePropertyIndex = 1 To TablePropertyCountMin - 1
             TableProperty1Name = mdatatableTables1.Columns(TablePropertyIndex).ColumnName
             TableProperty2Name = mdatatableTables2.Columns(TablePropertyIndex).ColumnName
-            If TableProperty1Name = TableProperty2Name Then
-                'COINCIDE EL NOMBRE DE LA PROPIEDAD, ENTONCES COMPARO (SI NO ES UN NOMBRE DE CATÁLOGO)
-                If Not EXCLUSION_TABLE_PROPERTY_NAME.Contains("|" & TableProperty1Name & "|") Then
+            If TableProperty1Name = TableProperty2Name AndAlso Not EXCLUSION_TABLE_PROPERTY_NAME.Contains("|" & TableProperty1Name & "|") Then
 
-                    TableProperty1Value = datarowTable1(TablePropertyIndex).ToString.ToLower
-                    TableProperty2Value = datarowTable2(TablePropertyIndex).ToString.ToLower
+                TableProperty1Value = datarowTable1(TablePropertyIndex).ToString.ToLower
+                TableProperty2Value = datarowTable2(TablePropertyIndex).ToString.ToLower
 
-                    If TableProperty1Value <> TableProperty2Value Then
-                        'LAS PROPIEDADES SON DIFERENTES
-                        treenodeTable = CreateNodeTable(treenodeFolderTablesResult, datarowTable1(DATAROW_COLUMN_TABLE_NAME).ToString, ICON_NAME_TABLE_DIFFERENT, False)
-                        treenodeTable.Nodes.Add(TREENODE_KEY_REPORT, String.Format(STRING_PROPERTY_DIFFERENT, TableProperty1Name, TableProperty1Value, TableProperty2Value), ICON_NAME_REPORT, ICON_NAME_REPORT)
-                    End If
+                If TableProperty1Value <> TableProperty2Value Then
+                    'LAS PROPIEDADES SON DIFERENTES
+                    treenodeTable = CreateNodeTable(treenodeFolderTablesResult, datarowTable1(DATAROW_COLUMN_TABLE_NAME).ToString, ICON_NAME_TABLE_DIFFERENT, False)
+                    treenodeTable.Nodes.Add(TREENODE_KEY_REPORT, String.Format(STRING_PROPERTY_DIFFERENT, TableProperty1Name, TableProperty1Value, TableProperty2Value), ICON_NAME_REPORT, ICON_NAME_REPORT)
                 End If
             End If
         Next
@@ -596,8 +596,8 @@
         Dim Column2Index As Integer = 0
         Dim Column2Count As Integer
 
-        Dim Column1Name As String = ""
-        Dim Column2Name As String = ""
+        Dim Column1Name As String
+        Dim Column2Name As String
 
         mdatatableColumns1.DefaultView.RowFilter = DATAROW_COLUMN_TABLE_NAME & " = '" & TableOrViewName & "'"
         mdatatableColumns2.DefaultView.RowFilter = DATAROW_COLUMN_TABLE_NAME & " = '" & TableOrViewName & "'"
@@ -605,7 +605,7 @@
         Column1Count = mdatatableColumns1.DefaultView.ToTable.Rows.Count
         Column2Count = mdatatableColumns2.DefaultView.ToTable.Rows.Count
 
-        Do While (Column1Index <= Column1Count - 1 Or Column2Index <= Column2Count - 1)
+        Do While (Column1Index <= Column1Count - 1 OrElse Column2Index <= Column2Count - 1)
             If Column1Index <= Column1Count - 1 Then
                 datarowColumn1 = mdatatableColumns1.DefaultView.ToTable.Rows(Column1Index)
                 Column1Name = datarowColumn1(DATAROW_COLUMN_COLUMN_NAME).ToString
@@ -674,20 +674,17 @@
         For ColumnPropertyIndex = 1 To ColumnPropertyCountMin - 1
             ColumnProperty1Name = mdatatableColumns1.Columns(ColumnPropertyIndex).ColumnName
             ColumnProperty2Name = mdatatableColumns2.Columns(ColumnPropertyIndex).ColumnName
-            If ColumnProperty1Name = ColumnProperty2Name Then
-                'COINCIDE EL NOMBRE DE LA PROPIEDAD, ENTONCES COMPARO (SI NO ES UN NOMBRE DE CATÁLOGO)
-                If Not EXCLUSION_COLUMN_PROPERTY_NAME.Contains("|" & ColumnProperty1Name & "|") Then
+            If ColumnProperty1Name = ColumnProperty2Name AndAlso Not EXCLUSION_COLUMN_PROPERTY_NAME.Contains("|" & ColumnProperty1Name & "|") Then
 
-                    ColumnProperty1Value = datarowColumn1(ColumnPropertyIndex).ToString.ToLower
-                    ColumnProperty2Value = datarowColumn2(ColumnPropertyIndex).ToString.ToLower
+                ColumnProperty1Value = datarowColumn1(ColumnPropertyIndex).ToString.ToLower
+                ColumnProperty2Value = datarowColumn2(ColumnPropertyIndex).ToString.ToLower
 
-                    If ColumnProperty1Value <> ColumnProperty2Value Then
-                        'LAS PROPIEDADES SON DIFERENTES
-                        treenodeTable = CreateNodeTable(treenodeFolderTablesResult, datarowColumn1(DATAROW_COLUMN_TABLE_NAME).ToString, ICON_NAME_TABLE_DIFFERENT, False)
-                        treenodeFolder = CreateNodeTableSubFolder(treenodeTable, TREENODE_FOLDER_COLUMNS, ICON_NAME_FOLDER)
-                        treenodeColumn = CreateNodeColumn(treenodeFolder, datarowColumn2, ICON_NAME_COLUMN_DIFFERENT)
-                        treenodeColumn.Nodes.Add(TREENODE_KEY_REPORT, String.Format(STRING_PROPERTY_DIFFERENT, ColumnProperty1Name, ColumnProperty1Value, ColumnProperty2Value), ICON_NAME_REPORT, ICON_NAME_REPORT)
-                    End If
+                If ColumnProperty1Value <> ColumnProperty2Value Then
+                    'LAS PROPIEDADES SON DIFERENTES
+                    treenodeTable = CreateNodeTable(treenodeFolderTablesResult, datarowColumn1(DATAROW_COLUMN_TABLE_NAME).ToString, ICON_NAME_TABLE_DIFFERENT, False)
+                    treenodeFolder = CreateNodeTableSubFolder(treenodeTable, TREENODE_FOLDER_COLUMNS, ICON_NAME_FOLDER)
+                    treenodeColumn = CreateNodeColumn(treenodeFolder, datarowColumn2, ICON_NAME_COLUMN_DIFFERENT)
+                    treenodeColumn.Nodes.Add(TREENODE_KEY_REPORT, String.Format(STRING_PROPERTY_DIFFERENT, ColumnProperty1Name, ColumnProperty1Value, ColumnProperty2Value), ICON_NAME_REPORT, ICON_NAME_REPORT)
                 End If
             End If
         Next
@@ -705,8 +702,8 @@
         Dim Column2Index As Integer = 0
         Dim Column2Count As Integer
 
-        Dim Column1Name As String = ""
-        Dim Column2Name As String = ""
+        Dim Column1Name As String
+        Dim Column2Name As String
 
         mdatatablePrimaryKeys1.DefaultView.RowFilter = DATAROW_COLUMN_TABLE_NAME & " = '" & TableName & "'"
         mdatatablePrimaryKeys2.DefaultView.RowFilter = DATAROW_COLUMN_TABLE_NAME & " = '" & TableName & "'"
@@ -714,7 +711,7 @@
         Column1Count = mdatatablePrimaryKeys1.DefaultView.ToTable.Rows.Count
         Column2Count = mdatatablePrimaryKeys2.DefaultView.ToTable.Rows.Count
 
-        Do While (Column1Index <= Column1Count - 1 Or Column2Index <= Column2Count - 1)
+        Do While (Column1Index <= Column1Count - 1 OrElse Column2Index <= Column2Count - 1)
             If Column1Index <= Column1Count - 1 Then
                 datarowPrimaryKey1 = mdatatablePrimaryKeys1.DefaultView.ToTable.Rows(Column1Index)
                 Column1Name = datarowPrimaryKey1(DATAROW_COLUMN_COLUMN_NAME).ToString
@@ -769,8 +766,8 @@
         Dim TableConstraint2Index As Integer = 0
         Dim TableConstraint2Count As Integer
 
-        Dim TableConstraint1Name As String = ""
-        Dim TableConstraint2Name As String = ""
+        Dim TableConstraint1Name As String
+        Dim TableConstraint2Name As String
 
         mdatatableTableConstraints1.DefaultView.RowFilter = DATAROW_COLUMN_TABLE_NAME & " = '" & TableName & "'"
         mdatatableTableConstraints2.DefaultView.RowFilter = DATAROW_COLUMN_TABLE_NAME & " = '" & TableName & "'"
@@ -778,7 +775,7 @@
         TableConstraint1Count = mdatatableTableConstraints1.DefaultView.ToTable.Rows.Count
         TableConstraint2Count = mdatatableTableConstraints2.DefaultView.ToTable.Rows.Count
 
-        Do While (TableConstraint1Index <= TableConstraint1Count - 1 Or TableConstraint2Index <= TableConstraint2Count - 1)
+        Do While (TableConstraint1Index <= TableConstraint1Count - 1 OrElse TableConstraint2Index <= TableConstraint2Count - 1)
             If TableConstraint1Index <= TableConstraint1Count - 1 Then
                 datarowTableConstraint1 = mdatatableTableConstraints1.DefaultView.ToTable.Rows(TableConstraint1Index)
                 TableConstraint1Name = datarowTableConstraint1(DATAROW_COLUMN_CONSTRAINT_NAME).ToString
@@ -862,24 +859,21 @@
         For TableConstraintPropertyIndex = 1 To TableConstraintPropertyCountMin - 1
             TableConstraintProperty1Name = mdatatableTableConstraints1.Columns(TableConstraintPropertyIndex).ColumnName
             TableConstraintProperty2Name = mdatatableTableConstraints2.Columns(TableConstraintPropertyIndex).ColumnName
-            If TableConstraintProperty1Name = TableConstraintProperty2Name Then
-                'COINCIDE EL NOMBRE DE LA PROPIEDAD, ENTONCES COMPARO (SI NO ES UN NOMBRE DE CATÁLOGO)
-                If Not EXCLUSION_TABLE_CONSTRAINT_PROPERTY_NAME.Contains("|" & TableConstraintProperty1Name & "|") Then
+            If TableConstraintProperty1Name = TableConstraintProperty2Name AndAlso Not EXCLUSION_TABLE_CONSTRAINT_PROPERTY_NAME.Contains("|" & TableConstraintProperty1Name & "|") Then
 
-                    TableConstraintProperty1Value = datarowTableConstraint1(TableConstraintPropertyIndex).ToString.ToLower
-                    TableConstraintProperty2Value = datarowTableConstraint2(TableConstraintPropertyIndex).ToString.ToLower
+                TableConstraintProperty1Value = datarowTableConstraint1(TableConstraintPropertyIndex).ToString.ToLower
+                TableConstraintProperty2Value = datarowTableConstraint2(TableConstraintPropertyIndex).ToString.ToLower
 
-                    If TableConstraintProperty1Value <> TableConstraintProperty2Value Then
-                        'LAS PROPIEDADES SON DIFERENTES
-                        treenodeTable = CreateNodeTable(treenodeFolderTablesResult, datarowTableConstraint1(DATAROW_COLUMN_TABLE_NAME).ToString, ICON_NAME_TABLE_DIFFERENT, False)
-                        If datarowTableConstraint1(DATAROW_COLUMN_CONSTRAINT_TYPE).ToString <> "CHECK" Then
-                            treenodeFolder = CreateNodeTableSubFolder(treenodeTable, TREENODE_FOLDER_KEYS, ICON_NAME_FOLDER)
-                        Else
-                            treenodeFolder = CreateNodeTableSubFolder(treenodeTable, TREENODE_FOLDER_CONSTRAINTS, ICON_NAME_FOLDER)
-                        End If
-                        treenodeTableConstraint = CreateNodeTableConstraint(treenodeFolder, datarowTableConstraint1, ICON_NAME_ALTERNATEKEY_DIFFERENT, ICON_NAME_PRIMARYKEY_DIFFERENT, ICON_NAME_FOREIGNKEY_DIFFERENT, ICON_NAME_CHECK_DIFFERENT)
-                        treenodeTableConstraint.Nodes.Add(TREENODE_KEY_REPORT, String.Format(STRING_PROPERTY_DIFFERENT, TableConstraintProperty1Name, TableConstraintProperty1Value, TableConstraintProperty2Value), ICON_NAME_REPORT, ICON_NAME_REPORT)
+                If TableConstraintProperty1Value <> TableConstraintProperty2Value Then
+                    'LAS PROPIEDADES SON DIFERENTES
+                    treenodeTable = CreateNodeTable(treenodeFolderTablesResult, datarowTableConstraint1(DATAROW_COLUMN_TABLE_NAME).ToString, ICON_NAME_TABLE_DIFFERENT, False)
+                    If datarowTableConstraint1(DATAROW_COLUMN_CONSTRAINT_TYPE).ToString <> "CHECK" Then
+                        treenodeFolder = CreateNodeTableSubFolder(treenodeTable, TREENODE_FOLDER_KEYS, ICON_NAME_FOLDER)
+                    Else
+                        treenodeFolder = CreateNodeTableSubFolder(treenodeTable, TREENODE_FOLDER_CONSTRAINTS, ICON_NAME_FOLDER)
                     End If
+                    treenodeTableConstraint = CreateNodeTableConstraint(treenodeFolder, datarowTableConstraint1, ICON_NAME_ALTERNATEKEY_DIFFERENT, ICON_NAME_PRIMARYKEY_DIFFERENT, ICON_NAME_FOREIGNKEY_DIFFERENT, ICON_NAME_CHECK_DIFFERENT)
+                    treenodeTableConstraint.Nodes.Add(TREENODE_KEY_REPORT, String.Format(STRING_PROPERTY_DIFFERENT, TableConstraintProperty1Name, TableConstraintProperty1Value, TableConstraintProperty2Value), ICON_NAME_REPORT, ICON_NAME_REPORT)
                 End If
             End If
         Next
@@ -898,8 +892,8 @@
         Dim Index2Index As Integer = 0
         Dim Index2Count As Integer
 
-        Dim Index1Name As String = ""
-        Dim Index2Name As String = ""
+        Dim Index1Name As String
+        Dim Index2Name As String
 
         mdatatableIndexes1.DefaultView.RowFilter = DATAROW_COLUMN_TABLE_NAME & " = '" & TableName & "'"
         mdatatableIndexes2.DefaultView.RowFilter = DATAROW_COLUMN_TABLE_NAME & " = '" & TableName & "'"
@@ -907,7 +901,7 @@
         Index1Count = mdatatableIndexes1.DefaultView.ToTable.Rows.Count
         Index2Count = mdatatableIndexes2.DefaultView.ToTable.Rows.Count
 
-        Do While (Index1Index <= Index1Count - 1 Or Index2Index <= Index2Count - 1)
+        Do While (Index1Index <= Index1Count - 1 OrElse Index2Index <= Index2Count - 1)
             If Index1Index <= Index1Count - 1 Then
                 datarowIndex1 = mdatatableIndexes1.DefaultView.ToTable.Rows(Index1Index)
                 Index1Name = datarowIndex1(DATAROW_COLUMN_INDEX_NAME).ToString
@@ -975,24 +969,22 @@
         For IndexPropertyIndex = 1 To IndexPropertyCountMin - 1
             IndexProperty1Name = mdatatableIndexes1.Columns(IndexPropertyIndex).ColumnName
             IndexProperty2Name = mdatatableIndexes2.Columns(IndexPropertyIndex).ColumnName
-            If IndexProperty1Name = IndexProperty2Name Then
-                'COINCIDE EL NOMBRE DE LA PROPIEDAD, ENTONCES COMPARO (SI NO ES UN NOMBRE DE CATÁLOGO)
-                If Not EXCLUSION_INDEX_PROPERTY_NAME.Contains("|" & IndexProperty1Name & "|") Then
+            If IndexProperty1Name = IndexProperty2Name AndAlso Not EXCLUSION_INDEX_PROPERTY_NAME.Contains("|" & IndexProperty1Name & "|") Then
 
-                    IndexProperty1Value = datarowIndex1(IndexPropertyIndex).ToString.ToLower
-                    IndexProperty2Value = datarowIndex2(IndexPropertyIndex).ToString.ToLower
+                IndexProperty1Value = datarowIndex1(IndexPropertyIndex).ToString.ToLower
+                IndexProperty2Value = datarowIndex2(IndexPropertyIndex).ToString.ToLower
 
-                    If IndexProperty1Value <> IndexProperty2Value Then
-                        'LAS PROPIEDADES SON DIFERENTES
-                        treenodeTable = CreateNodeTable(treenodeFolderTablesResult, datarowIndex1(DATAROW_COLUMN_TABLE_NAME).ToString, ICON_NAME_TABLE_DIFFERENT, False)
-                        treenodeFolder = CreateNodeTableSubFolder(treenodeTable, TREENODE_FOLDER_INDEXES, ICON_NAME_FOLDER)
-                        treenodeIndex = CreateNodeIndex(treenodeFolder, datarowIndex1, ICON_NAME_INDEX_DIFFERENT, ICON_NAME_INDEX_DIFFERENT)
-                        treenodeIndex.Nodes.Add(TREENODE_KEY_REPORT, "Column: " & datarowIndex1(DATAROW_COLUMN_COLUMN_NAME).ToString & " --> " & String.Format(STRING_PROPERTY_DIFFERENT, IndexProperty1Name, IndexProperty1Value, IndexProperty2Value), ICON_NAME_REPORT, ICON_NAME_REPORT)
-                    End If
+                If IndexProperty1Value <> IndexProperty2Value Then
+                    'LAS PROPIEDADES SON DIFERENTES
+                    treenodeTable = CreateNodeTable(treenodeFolderTablesResult, datarowIndex1(DATAROW_COLUMN_TABLE_NAME).ToString, ICON_NAME_TABLE_DIFFERENT, False)
+                    treenodeFolder = CreateNodeTableSubFolder(treenodeTable, TREENODE_FOLDER_INDEXES, ICON_NAME_FOLDER)
+                    treenodeIndex = CreateNodeIndex(treenodeFolder, datarowIndex1, ICON_NAME_INDEX_DIFFERENT, ICON_NAME_INDEX_DIFFERENT)
+                    treenodeIndex.Nodes.Add(TREENODE_KEY_REPORT, "Column: " & datarowIndex1(DATAROW_COLUMN_COLUMN_NAME).ToString & " --> " & String.Format(STRING_PROPERTY_DIFFERENT, IndexProperty1Name, IndexProperty1Value, IndexProperty2Value), ICON_NAME_REPORT, ICON_NAME_REPORT)
                 End If
             End If
         Next
     End Sub
+
 #End Region
 
 End Module

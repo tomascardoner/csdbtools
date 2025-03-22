@@ -1,8 +1,8 @@
 ﻿Module CopyData
 
-    Private SYSTEM_TABLES_PREFIX() As String = {"MSys"}
-    Private REPLICATION_FIELDS() As String = {"Gen_Notas", "s_GUID", "Aen_Notas", "s_ColLineage", "s_Generation", "s_Lineage"}
-    Private COLUMN_PROPERTIES_EXCLUDE() As String = {"Nullable", "Fixed Length", "Seed", "Increment"}
+    Private ReadOnly SYSTEM_TABLES_PREFIX() As String = {"MSys"}
+    Private ReadOnly REPLICATION_FIELDS() As String = {"Gen_Notas", "s_GUID", "Aen_Notas", "s_ColLineage", "s_Generation", "s_Lineage"}
+    Private ReadOnly COLUMN_PROPERTIES_EXCLUDE() As String = {"Nullable", "Fixed Length", "Seed", "Increment"}
 
     Private Const TABLE_TYPE_TABLE As String = "TABLE"
     Private Const TABLE_TYPE_QUERY As String = "VIEW"
@@ -10,7 +10,7 @@
     Private Const TABLE_TYPE_SYSTEM_TABLE As String = "SYSTEM TABLE"
 
     Friend Function CopyDatabase(ByVal SourceDB As String, ByVal DestinationDB As String, ByVal IgnoreReplicationObjects As Boolean, ByVal IgnoreHiddenObjects As Boolean, ByVal IgnoreSystemObjects As Boolean, ByVal OptionCreateTables As Boolean, ByVal OptionCopyKeys As Boolean, ByVal OptionCopyIndexes As Boolean, ByVal OptionCopyData As Boolean, ByVal OptionCopyForeignKeys As Boolean) As Boolean
-        Dim ErrorMessage As String = ""
+        Dim ErrorMessage As String = String.Empty
         Dim StringToSearch As String
         Dim IgnoreTable As Boolean
         Dim OperationCompleted As Boolean
@@ -33,15 +33,17 @@
             SourceConnectionADODB = New ADODB.Connection()
             SourceConnectionADODB.Open(SourceDB)
             SourceConnectionOLEDB = New OleDb.OleDbConnection(SourceDB)
-            SourceCatalog = New ADOX.Catalog
-            SourceCatalog.ActiveConnection = SourceConnectionADODB
+            SourceCatalog = New ADOX.Catalog With {
+                .ActiveConnection = SourceConnectionADODB
+            }
 
             ErrorMessage = "Error opening Destination database."
             DestinationConnectionADODB = New ADODB.Connection()
             DestinationConnectionADODB.Open(DestinationDB)
             DestinationConnectionOLEDB = New OleDb.OleDbConnection(DestinationDB)
-            DestinationCatalog = New ADOX.Catalog
-            DestinationCatalog.ActiveConnection = DestinationConnectionADODB
+            DestinationCatalog = New ADOX.Catalog With {
+                .ActiveConnection = DestinationConnectionADODB
+            }
 
         Catch ex As Exception
             CardonerSistemas.ErrorHandler.ProcessError(ex, ErrorMessage)
@@ -50,13 +52,13 @@
 
         '//// ITERATE THROUGH EVERY TABLE TO COPY COLUMNS, KEYS ANDS INDEXES ////
         Try
-            formCopy_Options.progressbarStatus.Maximum = SourceCatalog.Tables.Count
+            FormCopyOptions.progressbarStatus.Maximum = SourceCatalog.Tables.Count
 
             For Each SourceTable In SourceCatalog.Tables()
-                formCopy_Options.progressbarStatus.Value = formCopy_Options.progressbarStatus.Value + 1
+                FormCopyOptions.progressbarStatus.Value = FormCopyOptions.progressbarStatus.Value + 1
                 If SourceTable.Type = TABLE_TYPE_TABLE Then
                     ErrorMessage = String.Format("Error opening table '{0}'", SourceTable.Name)
-                    formCopy_Options.labelStatus.Text = "TABLE '" & SourceTable.Name & "': Opening source..."
+                    FormCopyOptions.labelStatus.Text = "TABLE '" & SourceTable.Name & "': Opening source..."
 
                     IgnoreTable = False
                     If IgnoreSystemObjects Then
@@ -74,7 +76,7 @@
 
                             'CREATE TABLE AND COPY PROPERTIES
                             With DestinationTable
-                                formCopy_Options.labelStatus.Text = "TABLE '" & SourceTable.Name & "': Creating table..."
+                                FormCopyOptions.labelStatus.Text = "TABLE '" & SourceTable.Name & "': Creating table..."
                                 .Name = SourceTable.Name
                                 Debug.Print("- TABLE: " & .Name)
                                 .ParentCatalog = DestinationCatalog
@@ -84,7 +86,7 @@
                             End With
 
                             'CREATE COLUMNS AND COPY PROPERTIES
-                            formCopy_Options.labelStatus.Text = "TABLE '" & SourceTable.Name & "': Creating columns..."
+                            FormCopyOptions.labelStatus.Text = "TABLE '" & SourceTable.Name & "': Creating columns..."
                             If Not CopyColumns(SourceConnectionADODB, SourceTable, DestinationCatalog, DestinationTable, IgnoreReplicationObjects) Then
                                 Exit For
                             End If
@@ -94,29 +96,29 @@
 
                         'CREATE KEYS AND COPY PROPERTIES
                         If OptionCopyKeys Then
-                            formCopy_Options.labelStatus.Text = "TABLE '" & SourceTable.Name & "': Creating keys..."
-                            If Not CopyKeys(SourceConnectionADODB, SourceTable, DestinationCatalog, DestinationTable, IgnoreReplicationObjects) Then
+                            FormCopyOptions.labelStatus.Text = "TABLE '" & SourceTable.Name & "': Creating keys..."
+                            If Not CopyKeys(SourceTable, DestinationTable, IgnoreReplicationObjects) Then
                                 Exit For
                             End If
                         End If
 
                         'CREATE INDEXES AND COPY PROPERTIES
                         If OptionCopyIndexes Then
-                            formCopy_Options.labelStatus.Text = "TABLE '" & SourceTable.Name & "': Creating indexes..."
-                            If Not CopyIndexes(SourceConnectionADODB, SourceTable, DestinationCatalog, DestinationTable, IgnoreReplicationObjects) Then
+                            FormCopyOptions.labelStatus.Text = "TABLE '" & SourceTable.Name & "': Creating indexes..."
+                            If Not CopyIndexes(SourceTable, DestinationTable, IgnoreReplicationObjects) Then
                                 Exit For
                             End If
                         End If
 
                         'ADD THE TABLE TO THE DATABASE
                         If OptionCreateTables Then
-                            formCopy_Options.labelStatus.Text = "TABLE '" & SourceTable.Name & "': Adding table to database..."
+                            FormCopyOptions.labelStatus.Text = "TABLE '" & SourceTable.Name & "': Adding table to database..."
                             DestinationCatalog.Tables.Append(DestinationTable)
                         End If
 
                         'COPY DATA
                         If OptionCopyData Then
-                            formCopy_Options.labelStatus.Text = "TABLE '" & SourceTable.Name & "': Copying data..."
+                            FormCopyOptions.labelStatus.Text = "TABLE '" & SourceTable.Name & "': Copying data..."
                             If Not CopyData(SourceConnectionOLEDB, DestinationConnectionADODB, DestinationConnectionOLEDB, SourceTable.Name) Then
                                 Exit For
                             End If
@@ -173,8 +175,8 @@
                             DestinationTable = DestinationCatalog.Tables(SourceTable.Name)
                             Debug.Print("- TABLE: " & DestinationTable.Name)
 
-                            formCopy_Options.labelStatus.Text = "TABLE '" & SourceTable.Name & "': Creating foreign keys..."
-                            If Not CopyForeignKeys(SourceConnectionADODB, SourceTable, DestinationCatalog, DestinationTable, IgnoreReplicationObjects) Then
+                            FormCopyOptions.labelStatus.Text = "TABLE '" & SourceTable.Name & "': Creating foreign keys..."
+                            If Not CopyForeignKeys(SourceTable, DestinationTable, IgnoreReplicationObjects) Then
                                 SourceTable = Nothing
                                 SourceCatalog = Nothing
                                 SourceConnectionOLEDB.Close()
@@ -235,7 +237,7 @@
     End Function
 
     Private Function CopyColumns(ByRef SourceConnection As ADODB.Connection, ByRef SourceTable As ADOX.Table, ByRef DestinationCatalog As ADOX.Catalog, ByRef DestinationTable As ADOX.Table, ByVal IgnoreReplicationObjects As Boolean) As Boolean
-        Dim ErrorMessage As String = ""
+        Dim ErrorMessage As String = String.Empty
         Dim StringToSearch As String
         Dim IgnoreColumn As Boolean
         Dim IgnoreProperty As Boolean
@@ -310,8 +312,8 @@
         Return True
     End Function
 
-    Private Function CopyKeys(ByRef SourceConnection As ADODB.Connection, ByRef SourceTable As ADOX.Table, ByRef DestinationCatalog As ADOX.Catalog, ByRef DestinationTable As ADOX.Table, ByVal IgnoreReplicationObjects As Boolean) As Boolean
-        Dim ErrorMessage As String = ""
+    Private Function CopyKeys(ByRef SourceTable As ADOX.Table, ByRef DestinationTable As ADOX.Table, ByVal IgnoreReplicationObjects As Boolean) As Boolean
+        Dim ErrorMessage As String = String.Empty
         Dim IgnoreKey As Boolean
 
         Dim SourceKey As ADOX.Key
@@ -362,8 +364,8 @@
         Return True
     End Function
 
-    Private Function CopyIndexes(ByRef SourceConnection As ADODB.Connection, ByRef SourceTable As ADOX.Table, ByRef DestinationCatalog As ADOX.Catalog, ByRef DestinationTable As ADOX.Table, ByVal IgnoreReplicationObjects As Boolean) As Boolean
-        Dim ErrorMessage As String = ""
+    Private Function CopyIndexes(ByRef SourceTable As ADOX.Table, ByRef DestinationTable As ADOX.Table, ByVal IgnoreReplicationObjects As Boolean) As Boolean
+        Dim ErrorMessage As String = String.Empty
         Dim IgnoreIndex As Boolean
 
         Dim SourceIndex As ADOX.Index
@@ -422,18 +424,15 @@
     End Function
 
     Private Function CopyData(ByRef SourceConnectionOLEDB As OleDb.OleDbConnection, ByRef DestinationConnectionADODB As ADODB.Connection, ByRef DestinationConnectionOLEDB As OleDb.OleDbConnection, ByVal TableName As String) As Boolean
-        Dim ErrorMessage As String = ""
+        Dim ErrorMessage As String = String.Empty
 
         Dim DestinationTableRecordset As ADODB.Recordset
         Dim DestinationField As ADODB.Field
 
-        Dim FieldsCommaSeparated As String = ""
-        Dim ParametersCommaSeparated As String = ""
-
-        Dim SourceCommandText As String = ""
+        Dim SourceCommandText As String = String.Empty
         Dim SourceCommand As OleDb.OleDbCommand
 
-        Dim DestinationCommandText As String = ""
+        Dim DestinationCommandText As String = String.Empty
         Dim DestinationCommand As OleDb.OleDbCommand
 
         Dim DataAdapter As OleDb.OleDbDataAdapter
@@ -443,13 +442,15 @@
             DestinationTableRecordset = New ADODB.Recordset
             DestinationTableRecordset.Open(TableName, DestinationConnectionADODB, ADODB.CursorTypeEnum.adOpenForwardOnly, ADODB.LockTypeEnum.adLockReadOnly, ADODB.CommandTypeEnum.adCmdTable)
 
+            Dim sbFields As New System.Text.StringBuilder
+            Dim sbParameters As New System.Text.StringBuilder
             For Each DestinationField In DestinationTableRecordset.Fields
-                FieldsCommaSeparated = FieldsCommaSeparated & IIf(FieldsCommaSeparated.Length = 0, "", ", ") & DestinationField.Name
-                ParametersCommaSeparated = ParametersCommaSeparated & IIf(ParametersCommaSeparated.Length = 0, "", ", ") & "@" & DestinationField.Name
+                sbFields.Append(IIf(sbFields.Length = 0, "", ", ") & DestinationField.Name)
+                sbParameters.Append(IIf(sbParameters.Length = 0, "", ", ") & "@" & DestinationField.Name)
             Next DestinationField
 
-            SourceCommandText = "SELECT " & FieldsCommaSeparated & " FROM " & TableName
-            DestinationCommandText = "INSERT INTO " & TableName & " (" & FieldsCommaSeparated & ") VALUES (" & ParametersCommaSeparated & ")"
+            SourceCommandText = "SELECT " & sbFields.ToString() & " FROM " & TableName
+            DestinationCommandText = "INSERT INTO " & TableName & " (" & sbFields.ToString() & ") VALUES (" & sbParameters.ToString() & ")"
 
             SourceCommand = New OleDb.OleDbCommand(SourceCommandText, SourceConnectionOLEDB)
 
@@ -459,10 +460,11 @@
                 DestinationCommand.Parameters.Add(New OleDb.OleDbParameter("@" & DestinationField.Name, DestinationField.Type, DestinationField.DefinedSize, DestinationField.Name))
             Next DestinationField
 
-            DataAdapter = New OleDb.OleDbDataAdapter
-            DataAdapter.AcceptChangesDuringFill = False
-            DataAdapter.SelectCommand = SourceCommand
-            DataAdapter.InsertCommand = DestinationCommand
+            DataAdapter = New OleDb.OleDbDataAdapter With {
+                .AcceptChangesDuringFill = False,
+                .SelectCommand = SourceCommand,
+                .InsertCommand = DestinationCommand
+            }
 
             DataSet = New System.Data.DataSet
             DataAdapter.Fill(DataSet, TableName)
@@ -476,8 +478,8 @@
         Return True
     End Function
 
-    Private Function CopyForeignKeys(ByRef SourceConnection As ADODB.Connection, ByRef SourceTable As ADOX.Table, ByRef DestinationCatalog As ADOX.Catalog, ByRef DestinationTable As ADOX.Table, ByVal IgnoreReplicationObjects As Boolean) As Boolean
-        Dim ErrorMessage As String = ""
+    Private Function CopyForeignKeys(ByRef SourceTable As ADOX.Table, ByRef DestinationTable As ADOX.Table, ByVal IgnoreReplicationObjects As Boolean) As Boolean
+        Dim ErrorMessage As String = String.Empty
         Dim IgnoreKey As Boolean
 
         Dim SourceKey As ADOX.Key
@@ -512,9 +514,10 @@
                             .UpdateRule = SourceKey.UpdateRule
                             .DeleteRule = SourceKey.DeleteRule
                             For Each SourceColumn In SourceKey.Columns
-                                DestinationColumn = New ADOX.Column
-                                DestinationColumn.Name = SourceColumn.Name
-                                DestinationColumn.RelatedColumn = SourceColumn.RelatedColumn
+                                DestinationColumn = New ADOX.Column With {
+                                    .Name = SourceColumn.Name,
+                                    .RelatedColumn = SourceColumn.RelatedColumn
+                                }
                                 .Columns.Append(DestinationColumn)
                                 Debug.Print("         - COLUMN: " & DestinationColumn.Name)
                             Next SourceColumn

@@ -1,6 +1,7 @@
 ﻿Module CompareData
+
     Friend Sub CompareTables(ByVal ConnectionString1 As String, ByVal ConnectionString2 As String, ByRef listTables As List(Of String), ByVal VerificationModeAll As Boolean, ByVal MaximumDifferences As Byte)
-        Dim ErrorMessage As String = ""
+        Dim ErrorMessage As String = String.Empty
         Dim datatablePrimaryKeys1 As DataTable
         Dim datatablePrimaryKeys2 As DataTable
 
@@ -9,14 +10,16 @@
         Try
             ' DATABASE 1 CONNECT
             ErrorMessage = "Error connecting to Database 1."
-            Dim connectionDatabase1 = New OleDb.OleDbConnection
-            connectionDatabase1.ConnectionString = ConnectionString1
+            Dim connectionDatabase1 = New OleDb.OleDbConnection With {
+                .ConnectionString = ConnectionString1
+            }
             connectionDatabase1.Open()
 
             ' DATABASE 2 CONNECT
             ErrorMessage = "Error connecting to Database 2."
-            Dim connectionDatabase2 = New OleDb.OleDbConnection
-            connectionDatabase2.ConnectionString = ConnectionString2
+            Dim connectionDatabase2 = New OleDb.OleDbConnection With {
+                .ConnectionString = ConnectionString2
+            }
             connectionDatabase2.Open()
 
             ' GETTING DATABASE 1 KEYS

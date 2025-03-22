@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class formCompareData_Select
+Partial Class FormCompareDataSelect
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -46,59 +46,66 @@ Partial Class formCompareData_Select
         '
         'buttonDatabaseBrowse1
         '
-        Me.buttonDatabaseBrowse1.Location = New System.Drawing.Point(412, 11)
+        Me.buttonDatabaseBrowse1.Location = New System.Drawing.Point(549, 14)
+        Me.buttonDatabaseBrowse1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonDatabaseBrowse1.Name = "buttonDatabaseBrowse1"
-        Me.buttonDatabaseBrowse1.Size = New System.Drawing.Size(20, 22)
+        Me.buttonDatabaseBrowse1.Size = New System.Drawing.Size(27, 27)
         Me.buttonDatabaseBrowse1.TabIndex = 6
         Me.buttonDatabaseBrowse1.Text = "…"
         Me.buttonDatabaseBrowse1.UseVisualStyleBackColor = True
         '
         'textboxDatabase1
         '
-        Me.textboxDatabase1.Location = New System.Drawing.Point(83, 12)
+        Me.textboxDatabase1.Location = New System.Drawing.Point(111, 15)
+        Me.textboxDatabase1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.textboxDatabase1.Name = "textboxDatabase1"
-        Me.textboxDatabase1.Size = New System.Drawing.Size(328, 20)
+        Me.textboxDatabase1.Size = New System.Drawing.Size(436, 22)
         Me.textboxDatabase1.TabIndex = 5
         '
         'labelDatabase1
         '
         Me.labelDatabase1.AutoSize = True
-        Me.labelDatabase1.Location = New System.Drawing.Point(12, 15)
+        Me.labelDatabase1.Location = New System.Drawing.Point(16, 18)
+        Me.labelDatabase1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelDatabase1.Name = "labelDatabase1"
-        Me.labelDatabase1.Size = New System.Drawing.Size(65, 13)
+        Me.labelDatabase1.Size = New System.Drawing.Size(80, 16)
         Me.labelDatabase1.TabIndex = 4
         Me.labelDatabase1.Text = "Database 1:"
         '
         'buttonDatabaseBrowse2
         '
-        Me.buttonDatabaseBrowse2.Location = New System.Drawing.Point(842, 11)
+        Me.buttonDatabaseBrowse2.Location = New System.Drawing.Point(1123, 14)
+        Me.buttonDatabaseBrowse2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonDatabaseBrowse2.Name = "buttonDatabaseBrowse2"
-        Me.buttonDatabaseBrowse2.Size = New System.Drawing.Size(20, 22)
+        Me.buttonDatabaseBrowse2.Size = New System.Drawing.Size(27, 27)
         Me.buttonDatabaseBrowse2.TabIndex = 9
         Me.buttonDatabaseBrowse2.Text = "…"
         Me.buttonDatabaseBrowse2.UseVisualStyleBackColor = True
         '
         'textboxDatabase2
         '
-        Me.textboxDatabase2.Location = New System.Drawing.Point(509, 12)
+        Me.textboxDatabase2.Location = New System.Drawing.Point(679, 15)
+        Me.textboxDatabase2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.textboxDatabase2.Name = "textboxDatabase2"
-        Me.textboxDatabase2.Size = New System.Drawing.Size(331, 20)
+        Me.textboxDatabase2.Size = New System.Drawing.Size(440, 22)
         Me.textboxDatabase2.TabIndex = 8
         '
         'labelDatabase2
         '
         Me.labelDatabase2.AutoSize = True
-        Me.labelDatabase2.Location = New System.Drawing.Point(438, 15)
+        Me.labelDatabase2.Location = New System.Drawing.Point(584, 18)
+        Me.labelDatabase2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelDatabase2.Name = "labelDatabase2"
-        Me.labelDatabase2.Size = New System.Drawing.Size(65, 13)
+        Me.labelDatabase2.Size = New System.Drawing.Size(80, 16)
         Me.labelDatabase2.TabIndex = 7
         Me.labelDatabase2.Text = "Database 2:"
         '
         'buttonConnect
         '
-        Me.buttonConnect.Location = New System.Drawing.Point(868, 11)
+        Me.buttonConnect.Location = New System.Drawing.Point(1157, 14)
+        Me.buttonConnect.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonConnect.Name = "buttonConnect"
-        Me.buttonConnect.Size = New System.Drawing.Size(74, 22)
+        Me.buttonConnect.Size = New System.Drawing.Size(99, 27)
         Me.buttonConnect.TabIndex = 0
         Me.buttonConnect.Text = "Connect"
         Me.buttonConnect.UseVisualStyleBackColor = True
@@ -107,9 +114,10 @@ Partial Class formCompareData_Select
         '
         Me.buttonCheckUncheckAll.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.buttonCheckUncheckAll.Image = Global.CS_DB_Tools.My.Resources.Resources.IMAGE_CHECK_ALL_24
-        Me.buttonCheckUncheckAll.Location = New System.Drawing.Point(12, 436)
+        Me.buttonCheckUncheckAll.Location = New System.Drawing.Point(16, 537)
+        Me.buttonCheckUncheckAll.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonCheckUncheckAll.Name = "buttonCheckUncheckAll"
-        Me.buttonCheckUncheckAll.Size = New System.Drawing.Size(35, 35)
+        Me.buttonCheckUncheckAll.Size = New System.Drawing.Size(47, 43)
         Me.buttonCheckUncheckAll.TabIndex = 2
         Me.buttonCheckUncheckAll.UseVisualStyleBackColor = True
         '
@@ -124,11 +132,12 @@ Partial Class formCompareData_Select
         Me.listviewTables.GridLines = True
         Me.listviewTables.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
         Me.listviewTables.HideSelection = False
-        Me.listviewTables.Location = New System.Drawing.Point(12, 38)
+        Me.listviewTables.Location = New System.Drawing.Point(16, 47)
+        Me.listviewTables.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.listviewTables.MultiSelect = False
         Me.listviewTables.Name = "listviewTables"
         Me.listviewTables.ShowGroups = False
-        Me.listviewTables.Size = New System.Drawing.Size(930, 392)
+        Me.listviewTables.Size = New System.Drawing.Size(1239, 482)
         Me.listviewTables.TabIndex = 1
         Me.listviewTables.UseCompatibleStateImageBehavior = False
         Me.listviewTables.View = System.Windows.Forms.View.Details
@@ -158,9 +167,10 @@ Partial Class formCompareData_Select
         '
         Me.buttonNext.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.buttonNext.Image = Global.CS_DB_Tools.My.Resources.Resources.IMAGE_NEXT_24
-        Me.buttonNext.Location = New System.Drawing.Point(854, 436)
+        Me.buttonNext.Location = New System.Drawing.Point(1139, 537)
+        Me.buttonNext.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonNext.Name = "buttonNext"
-        Me.buttonNext.Size = New System.Drawing.Size(88, 35)
+        Me.buttonNext.Size = New System.Drawing.Size(117, 43)
         Me.buttonNext.TabIndex = 3
         Me.buttonNext.Text = "Next"
         Me.buttonNext.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
@@ -168,30 +178,37 @@ Partial Class formCompareData_Select
         '
         'labelMaximumDiferrences
         '
+        Me.labelMaximumDiferrences.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.labelMaximumDiferrences.AutoSize = True
-        Me.labelMaximumDiferrences.Location = New System.Drawing.Point(516, 447)
+        Me.labelMaximumDiferrences.Location = New System.Drawing.Point(575, 550)
+        Me.labelMaximumDiferrences.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelMaximumDiferrences.Name = "labelMaximumDiferrences"
-        Me.labelMaximumDiferrences.Size = New System.Drawing.Size(141, 13)
+        Me.labelMaximumDiferrences.Size = New System.Drawing.Size(174, 16)
         Me.labelMaximumDiferrences.TabIndex = 10
         Me.labelMaximumDiferrences.Text = "Maximum differences to find:"
         '
         'comboboxMaximumDiferrences
         '
+        Me.comboboxMaximumDiferrences.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.comboboxMaximumDiferrences.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxMaximumDiferrences.FormattingEnabled = True
         Me.comboboxMaximumDiferrences.Items.AddRange(New Object() {"1", "5", "10", "20", "50", "100", "200"})
-        Me.comboboxMaximumDiferrences.Location = New System.Drawing.Point(663, 444)
+        Me.comboboxMaximumDiferrences.Location = New System.Drawing.Point(771, 546)
+        Me.comboboxMaximumDiferrences.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.comboboxMaximumDiferrences.Name = "comboboxMaximumDiferrences"
-        Me.comboboxMaximumDiferrences.Size = New System.Drawing.Size(56, 21)
+        Me.comboboxMaximumDiferrences.Size = New System.Drawing.Size(73, 24)
         Me.comboboxMaximumDiferrences.TabIndex = 11
         '
         'groupboxVerificationMode
         '
+        Me.groupboxVerificationMode.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.groupboxVerificationMode.Controls.Add(Me.radiobuttonAllTables)
         Me.groupboxVerificationMode.Controls.Add(Me.radiobuttonOneTable)
-        Me.groupboxVerificationMode.Location = New System.Drawing.Point(192, 434)
+        Me.groupboxVerificationMode.Location = New System.Drawing.Point(204, 534)
+        Me.groupboxVerificationMode.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.groupboxVerificationMode.Name = "groupboxVerificationMode"
-        Me.groupboxVerificationMode.Size = New System.Drawing.Size(200, 44)
+        Me.groupboxVerificationMode.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.groupboxVerificationMode.Size = New System.Drawing.Size(267, 54)
         Me.groupboxVerificationMode.TabIndex = 12
         Me.groupboxVerificationMode.TabStop = False
         Me.groupboxVerificationMode.Text = "Verification mode:"
@@ -199,9 +216,10 @@ Partial Class formCompareData_Select
         'radiobuttonAllTables
         '
         Me.radiobuttonAllTables.AutoSize = True
-        Me.radiobuttonAllTables.Location = New System.Drawing.Point(126, 20)
+        Me.radiobuttonAllTables.Location = New System.Drawing.Point(168, 25)
+        Me.radiobuttonAllTables.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.radiobuttonAllTables.Name = "radiobuttonAllTables"
-        Me.radiobuttonAllTables.Size = New System.Drawing.Size(67, 17)
+        Me.radiobuttonAllTables.Size = New System.Drawing.Size(83, 20)
         Me.radiobuttonAllTables.TabIndex = 1
         Me.radiobuttonAllTables.Text = "All tables"
         Me.radiobuttonAllTables.UseVisualStyleBackColor = True
@@ -210,9 +228,10 @@ Partial Class formCompareData_Select
         '
         Me.radiobuttonOneTable.AutoSize = True
         Me.radiobuttonOneTable.Checked = True
-        Me.radiobuttonOneTable.Location = New System.Drawing.Point(6, 19)
+        Me.radiobuttonOneTable.Location = New System.Drawing.Point(8, 23)
+        Me.radiobuttonOneTable.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.radiobuttonOneTable.Name = "radiobuttonOneTable"
-        Me.radiobuttonOneTable.Size = New System.Drawing.Size(114, 17)
+        Me.radiobuttonOneTable.Size = New System.Drawing.Size(139, 20)
         Me.radiobuttonOneTable.TabIndex = 0
         Me.radiobuttonOneTable.TabStop = True
         Me.radiobuttonOneTable.Text = "One table at a time"
@@ -220,9 +239,9 @@ Partial Class formCompareData_Select
         '
         'formCompareData_Select
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(954, 483)
+        Me.ClientSize = New System.Drawing.Size(1272, 594)
         Me.Controls.Add(Me.groupboxVerificationMode)
         Me.Controls.Add(Me.comboboxMaximumDiferrences)
         Me.Controls.Add(Me.labelMaximumDiferrences)
@@ -236,6 +255,7 @@ Partial Class formCompareData_Select
         Me.Controls.Add(Me.labelDatabase1)
         Me.Controls.Add(Me.buttonCheckUncheckAll)
         Me.Controls.Add(Me.buttonConnect)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "formCompareData_Select"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent

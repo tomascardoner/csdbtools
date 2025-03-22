@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class formCompareData_BrowseDifferences
+Partial Class FormCompareDataBrowseDifferences
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.

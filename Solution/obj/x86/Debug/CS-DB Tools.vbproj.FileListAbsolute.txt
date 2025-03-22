@@ -35,3 +35,28 @@ C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS_DB_T
 C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS_DB_Tools.formMDIMain.resources
 C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS_DB_Tools.formCompareData_BrowseDifferences.resources
 C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS_DB_Tools.CardonerSistemas.ErrorHandlerMessageBox.resources
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS-DB Tools.vbproj.AssemblyReference.cache
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS-DB Tools.vbproj.CoreCompileInputs.cache
+C:\Data\Cardoner Sistemas\Development\CS-DB Tools\Solution\obj\x86\Debug\CS-DB Tools.vbproj.SuggestedBindingRedirects.cache
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\CS-DB Tools.vbproj.AssemblyReference.cache
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\Interop.ADOX.dll
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\Interop.MSDASC.dll
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\CS-DB Tools.vbproj.ResolveComReference.cache
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\CS_DB_Tools.CardonerSistemas.ErrorHandlerMessageBox.resources
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\CS_DB_Tools.formBrowseData.resources
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\CS_DB_Tools.Resources.resources
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\CS-DB Tools.vbproj.GenerateResource.cache
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\CS-DB Tools.vbproj.CoreCompileInputs.cache
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\CS-DB Tools.exe
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\CS-DB Tools.xml
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\CS-DB Tools.pdb
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\bin\Debug\CS-DB Tools.exe.config
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\bin\Debug\CS-DB Tools.exe
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\bin\Debug\CS-DB Tools.pdb
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\bin\Debug\CS-DB Tools.xml
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\CS_DB_Tools.FormCompareDataBrowseDifferences.resources
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\CS_DB_Tools.FormCompareDataSelect.resources
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\CS_DB_Tools.formCompareStructureResult.resources
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\CS_DB_Tools.FormCompareStructureSelect.resources
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\CS_DB_Tools.FormCopyOptions.resources
+C:\Data\Cardoner Sistemas\cs-db-tools\Solution\obj\x86\Debug\CS_DB_Tools.FormMdi.resources

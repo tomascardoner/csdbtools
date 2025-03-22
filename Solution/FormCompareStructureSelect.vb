@@ -1,14 +1,14 @@
 ﻿Imports System.Data
 
-Public Class formCompareStructure_Select
+Public Class FormCompareStructureSelect
     Private Sub Me_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         textboxDatabase1.Text = CSM_Registry.LoadApplicationValue("Compare Structures", "ConnectionString1", "")
         textboxDatabase2.Text = CSM_Registry.LoadApplicationValue("Compare Structures", "ConnectionString2", "")
 
-        treeviewDatabase1.ImageList = formMDIMain.imagelistDatabase
+        treeviewDatabase1.ImageList = FormMdi.imagelistDatabase
         treeviewDatabase1.SelectedImageIndex = Nothing
         treeviewDatabase1.SelectedImageKey = Nothing
-        treeviewDatabase2.ImageList = formMDIMain.imagelistDatabase
+        treeviewDatabase2.ImageList = FormMdi.imagelistDatabase
     End Sub
 
     Private Sub DatabaseBrowse1_Click(sender As System.Object, e As System.EventArgs) Handles buttonDatabaseBrowse1.Click
@@ -25,12 +25,12 @@ Public Class formCompareStructure_Select
         If textboxDatabase1.Text = String.Empty Then
             MsgBox("You must select connection for Database 1.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
             textboxDatabase1.Focus()
-            Exit Sub
+            Return
         End If
         If textboxDatabase2.Text = String.Empty Then
             MsgBox("You must select connection for Database 2.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
             textboxDatabase2.Focus()
-            Exit Sub
+            Return
         End If
 
         Cursor.Current = Cursors.WaitCursor
@@ -38,8 +38,9 @@ Public Class formCompareStructure_Select
         Try
             'DATABASE 1
             ErrorMessage = "Error connecting to Database 1."
-            Dim connectionDatabase1 = New OleDb.OleDbConnection
-            connectionDatabase1.ConnectionString = textboxDatabase1.Text
+            Dim connectionDatabase1 = New OleDb.OleDbConnection With {
+                .ConnectionString = textboxDatabase1.Text
+            }
             connectionDatabase1.Open()
             CSM_Registry.SaveApplicationValue("Compare Structures", "ConnectionString1", textboxDatabase1.Text)
 
@@ -53,8 +54,9 @@ Public Class formCompareStructure_Select
 
             'DATABASE 2
             ErrorMessage = "Error connecting to Database 2."
-            Dim connectionDatabase2 = New OleDb.OleDbConnection
-            connectionDatabase2.ConnectionString = textboxDatabase2.Text
+            Dim connectionDatabase2 = New OleDb.OleDbConnection With {
+                .ConnectionString = textboxDatabase2.Text
+            }
             connectionDatabase2.Open()
             CSM_Registry.SaveApplicationValue("Compare Structures", "ConnectionString2", textboxDatabase2.Text)
 
@@ -68,7 +70,7 @@ Public Class formCompareStructure_Select
 
         Catch ex As Exception
             CardonerSistemas.ErrorHandler.ProcessError(ex, ErrorMessage)
-            Exit Sub
+            Return
         End Try
 
         Cursor.Current = Cursors.Default
@@ -77,25 +79,25 @@ Public Class formCompareStructure_Select
         buttonCompare.Visible = True
     End Sub
 
-    Private Sub treeviewDatabase_AfterCheck(sender As Object, e As System.Windows.Forms.TreeViewEventArgs) Handles treeviewDatabase1.AfterCheck, treeviewDatabase2.AfterCheck
+    Private Sub TreeviewDatabase_AfterCheck(sender As Object, e As System.Windows.Forms.TreeViewEventArgs) Handles treeviewDatabase1.AfterCheck, treeviewDatabase2.AfterCheck
         For Each treenodeChild As TreeNode In e.Node.Nodes
             treenodeChild.Checked = e.Node.Checked
         Next
     End Sub
 
-    Private Sub buttonDatabase1SelectAll_Click(sender As System.Object, e As System.EventArgs) Handles buttonDatabase1SelectAll.Click
+    Private Sub ButtonDatabase1SelectAll_Click(sender As System.Object, e As System.EventArgs) Handles buttonDatabase1SelectAll.Click
         CheckTreeView(treeviewDatabase1, True)
     End Sub
 
-    Private Sub buttonDatabase1UnselectAll_Click(sender As System.Object, e As System.EventArgs) Handles buttonDatabase1UnselectAll.Click
+    Private Sub ButtonDatabase1UnselectAll_Click(sender As System.Object, e As System.EventArgs) Handles buttonDatabase1UnselectAll.Click
         CheckTreeView(treeviewDatabase1, False)
     End Sub
 
-    Private Sub buttonDatabase2SelectAll_Click(sender As System.Object, e As System.EventArgs) Handles buttonDatabase2SelectAll.Click
+    Private Sub ButtonDatabase2SelectAll_Click(sender As System.Object, e As System.EventArgs) Handles buttonDatabase2SelectAll.Click
         CheckTreeView(treeviewDatabase2, True)
     End Sub
 
-    Private Sub buttonDatabase2UnselectAll_Click(sender As System.Object, e As System.EventArgs) Handles buttonDatabase2UnselectAll.Click
+    Private Sub ButtonDatabase2UnselectAll_Click(sender As System.Object, e As System.EventArgs) Handles buttonDatabase2UnselectAll.Click
         CheckTreeView(treeviewDatabase2, False)
     End Sub
 
@@ -110,8 +112,8 @@ Public Class formCompareStructure_Select
     Private Sub Compare_Click(sender As System.Object, e As System.EventArgs) Handles buttonCompare.Click
         CompareStructure.CompareDatabases(treeviewDatabase1, treeviewDatabase2)
 
-        formCompareStructure_Result.MdiParent = formMDIMain
-        formCompareStructure_Result.Show()
+        formCompareStructureResult.MdiParent = FormMdi
+        formCompareStructureResult.Show()
 
         Me.Close()
     End Sub

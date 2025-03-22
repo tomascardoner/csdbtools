@@ -1,4 +1,4 @@
-﻿Public Class formBrowseData
+﻿Public Class FormBrowseData
     Private mConnection As System.Data.OleDb.OleDbConnection
     Private mDataAdapter As System.Data.OleDb.OleDbDataAdapter
     Private mDataSet As New System.Data.DataSet

@@ -1,9 +1,10 @@
 ﻿Module Startup
     Friend Const ERROR_CUSTOM_DIALOG As Boolean = True
 
+    <STAThread()>
     Public Sub Main()
         Application.EnableVisualStyles()
 
-        formMDIMain.ShowDialog()
+        FormMdi.ShowDialog()
     End Sub
 End Module

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -13,11 +13,12 @@
     <AssemblyName>CS-DB Tools</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
@@ -27,6 +28,7 @@
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <RemoveIntegerChecks>true</RemoveIntegerChecks>
     <Optimize>false</Optimize>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -37,6 +39,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DocumentationFile>CS-DB Tools.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -95,65 +98,66 @@
       <Link>ErrorHandlerMessageBox.vb</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Database_ADONET.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\framework-vbnet\CS_Database_ADONET.vb">
       <Link>CS_Database_ADONET.vb</Link>
     </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Instance.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\framework-vbnet\CS_Instance.vb">
       <Link>CS_Instance.vb</Link>
     </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Registry.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\framework-vbnet\CS_Registry.vb">
       <Link>CS_Registry.vb</Link>
     </Compile>
     <Compile Include="CompareData.vb" />
-    <Compile Include="formCompareData_BrowseDifferences.Designer.vb">
-      <DependentUpon>formCompareData_BrowseDifferences.vb</DependentUpon>
+    <Compile Include="FormCompareDataBrowseDifferences.Designer.vb">
+      <DependentUpon>FormCompareDataBrowseDifferences.vb</DependentUpon>
     </Compile>
-    <Compile Include="formCompareData_BrowseDifferences.vb">
+    <Compile Include="FormCompareDataBrowseDifferences.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formCompareData_Select.designer.vb">
-      <DependentUpon>formCompareData_Select.vb</DependentUpon>
+    <Compile Include="FormCompareDataSelect.designer.vb">
+      <DependentUpon>FormCompareDataSelect.vb</DependentUpon>
     </Compile>
-    <Compile Include="formCompareData_Select.vb">
+    <Compile Include="FormCompareDataSelect.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formCopy_Options.Designer.vb">
-      <DependentUpon>formCopy_Options.vb</DependentUpon>
+    <Compile Include="FormCopyOptions.Designer.vb">
+      <DependentUpon>FormCopyOptions.vb</DependentUpon>
     </Compile>
-    <Compile Include="formCopy_Options.vb">
+    <Compile Include="FormCopyOptions.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CompareStructure.vb" />
-    <Compile Include="formCompareStructure_Result.Designer.vb">
-      <DependentUpon>formCompareStructure_Result.vb</DependentUpon>
+    <Compile Include="formCompareStructureResult.Designer.vb">
+      <DependentUpon>formCompareStructureResult.vb</DependentUpon>
     </Compile>
-    <Compile Include="formCompareStructure_Result.vb">
+    <Compile Include="formCompareStructureResult.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formCompareStructure_Select.Designer.vb">
-      <DependentUpon>formCompareStructure_Select.vb</DependentUpon>
+    <Compile Include="FormCompareStructureSelect.Designer.vb">
+      <DependentUpon>FormCompareStructureSelect.vb</DependentUpon>
     </Compile>
-    <Compile Include="formCompareStructure_Select.vb">
+    <Compile Include="FormCompareStructureSelect.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CopyData.vb" />
-    <Compile Include="formBrowseData.Designer.vb">
-      <DependentUpon>formBrowseData.vb</DependentUpon>
+    <Compile Include="FormBrowseData.Designer.vb">
+      <DependentUpon>FormBrowseData.vb</DependentUpon>
     </Compile>
-    <Compile Include="formBrowseData.vb">
+    <Compile Include="FormBrowseData.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formMDIMain.vb">
+    <Compile Include="FormMdi.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formMDIMain.Designer.vb">
-      <DependentUpon>formMDIMain.vb</DependentUpon>
+    <Compile Include="FormMdi.Designer.vb">
+      <DependentUpon>FormMdi.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -172,26 +176,26 @@
       <Link>ErrorHandlerMessageBox.resx</Link>
       <DependentUpon>ErrorHandlerMessageBox.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formCompareData_BrowseDifferences.resx">
-      <DependentUpon>formCompareData_BrowseDifferences.vb</DependentUpon>
+    <EmbeddedResource Include="FormCompareDataBrowseDifferences.resx">
+      <DependentUpon>FormCompareDataBrowseDifferences.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formCompareData_Select.resx">
-      <DependentUpon>formCompareData_Select.vb</DependentUpon>
+    <EmbeddedResource Include="FormCompareDataSelect.resx">
+      <DependentUpon>FormCompareDataSelect.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formCompareStructure_Result.resx">
-      <DependentUpon>formCompareStructure_Result.vb</DependentUpon>
+    <EmbeddedResource Include="formCompareStructureResult.resx">
+      <DependentUpon>formCompareStructureResult.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formCompareStructure_Select.resx">
-      <DependentUpon>formCompareStructure_Select.vb</DependentUpon>
+    <EmbeddedResource Include="FormCompareStructureSelect.resx">
+      <DependentUpon>FormCompareStructureSelect.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formCopy_Options.resx">
-      <DependentUpon>formCopy_Options.vb</DependentUpon>
+    <EmbeddedResource Include="FormCopyOptions.resx">
+      <DependentUpon>FormCopyOptions.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formBrowseData.resx">
-      <DependentUpon>formBrowseData.vb</DependentUpon>
+    <EmbeddedResource Include="FormBrowseData.resx">
+      <DependentUpon>FormBrowseData.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formMDIMain.resx">
-      <DependentUpon>formMDIMain.vb</DependentUpon>
+    <EmbeddedResource Include="FormMdi.resx">
+      <DependentUpon>FormMdi.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

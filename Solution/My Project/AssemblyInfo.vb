@@ -11,8 +11,8 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("CS-DB Tools 2012")> 
 <Assembly: AssemblyDescription("")> 
 <Assembly: AssemblyCompany("Cardoner Sistemas")> 
-<Assembly: AssemblyProduct("CS-DB Tools")> 
-<Assembly: AssemblyCopyright("Copyright © 2012-2018 Cardoner Sistemas")> 
+<Assembly: AssemblyProduct("CS-DB Tools")>
+<Assembly: AssemblyCopyright("Copyright © 2012-2025 Cardoner Sistemas")>
 <Assembly: AssemblyTrademark("® CS-DB Tools 2012")> 
 
 <Assembly: ComVisible(False)>

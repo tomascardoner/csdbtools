@@ -1,6 +1,6 @@
 ﻿Imports System.Data
 
-Public Class formCompareData_Select
+Public Class FormCompareDataSelect
     Private Const RESULT_TABLE_BOTHSIDES As String = "=="
     Private Const RESULT_TABLE_LEFTSIDE As String = "<<"
     Private Const RESULT_TABLE_RIGHTSIDE As String = ">>"
@@ -26,17 +26,17 @@ Public Class formCompareData_Select
     End Sub
 
     Private Sub Connect_Click(sender As System.Object, e As System.EventArgs) Handles buttonConnect.Click
-        Dim ErrorMessage As String = ""
+        Dim ErrorMessage As String = String.Empty
 
         If textboxDatabase1.Text = String.Empty Then
             MsgBox("You must select connection for Database 1.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
             textboxDatabase1.Focus()
-            Exit Sub
+            Return
         End If
         If textboxDatabase2.Text = String.Empty Then
             MsgBox("You must select connection for Database 2.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
             textboxDatabase2.Focus()
-            Exit Sub
+            Return
         End If
 
         Cursor.Current = Cursors.WaitCursor
